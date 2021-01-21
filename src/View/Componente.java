@@ -19,8 +19,8 @@ public class Componente extends JPanel {
 	private JLabel lbl1;
 	private JButton btnRestart, btnApagarSequencia, menu;
 	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay;
-	private int[] x = { 20, 78, 130, 20, 78, 130, 20, 78, 130 };
-	private int[] y = { 11, 11, 11, 57, 57, 57, 103, 103, 103 };
+	private int[] x = { 10, 42, 74,106,10, 42, 74,106, 10, 42, 74, 106,10, 42, 74, 106 };
+	private int[] y = { 5, 5, 5,5, 46, 46, 46,46, 91, 91, 91, 91,136,136,136,136 };
 
 	public Componente(int largura, int altura) {
 
@@ -66,13 +66,13 @@ public class Componente extends JPanel {
 
 		painelArea = new JPanel();
 		painelArea.setBackground(new Color(102, 205, 170));
-		painelArea.setBounds(509, 104, 167, 147);
-		
+		painelArea.setBounds(509, 104, 167, 200);
+
 		addLabel();
 
 		btnApagarSequencia = new JButton("APAGAR ULTIMO");
 		btnApagarSequencia.setIcon(new ImageIcon(getClass().getResource("/lixo.png")));
-		btnApagarSequencia.setBounds(510, 252, 166, 43);
+		btnApagarSequencia.setBounds(510, 305, 166, 43);
 		btnApagarSequencia.setContentAreaFilled(false);
 		add(btnApagarSequencia);
 
@@ -100,7 +100,6 @@ public class Componente extends JPanel {
 		btnRight.setContentAreaFilled(false);
 		painelComandos.add(btnRight);
 
-
 		btn180 = new JButton("");
 		btn180.setIcon(new ImageIcon(getClass().getResource("/giro.png")));
 		btn180.setBounds(244, 11, 67, 69);
@@ -121,7 +120,7 @@ public class Componente extends JPanel {
 		painelArea.setPreferredSize(new Dimension(167, 147));
 		painelArea.setLayout(null);
 
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 16; i++) {
 
 			lbl1 = new JLabel("");
 			lbl1.setIcon(new ImageIcon(getClass().getResource("/cima.png")));
@@ -172,8 +171,6 @@ public class Componente extends JPanel {
 	public JButton getBtnRight() {
 		return btnRight;
 	}
-
-	
 
 	public JButton getBtn180() {
 		return btn180;

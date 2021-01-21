@@ -5,7 +5,7 @@ import Model.Sprite;
 public class Esquerda implements Runnable{
 	
 	Sprite personagem;
-	int up, down, left, right = 0;
+	int left;
 	boolean ativo = false;
 	int contador =0;
 	
@@ -20,9 +20,10 @@ public class Esquerda implements Runnable{
 			
 			try {
 				System.out.println("esquerda");
-		esquerda();
+				esquerda();
 				Thread.sleep(300);
 			} catch (InterruptedException e) {
+				System.out.println("parou esquerda");
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -51,7 +52,7 @@ public class Esquerda implements Runnable{
 
 		}
 		if (left == 3)
-			ativo = false;
+			left=0;
 		else
 			left++;
 		

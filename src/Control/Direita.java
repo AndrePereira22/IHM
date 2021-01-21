@@ -5,7 +5,7 @@ import Model.Sprite;
 public class Direita implements Runnable {
 
 	Sprite personagem;
-	int up, down, left, right = 0;
+	int  right = 0;
 	boolean ativo = true;
 	int contador = 0;
 
@@ -57,7 +57,7 @@ public class Direita implements Runnable {
 		if (contador == 44) {
 			ativo = false;
 			contador=0;
-			personagem.aparencia = 3;
+			personagem.aparencia = 7;
 		}
 	}
 

@@ -37,8 +37,8 @@ public class Movimento {
 						} else if (personagem.aparencia == 2) {
 							personagem.aparencia = 1;
 						} else if (personagem.aparencia == 1) {
-							personagem.aparencia = 3;
-						} else if (personagem.aparencia == 3) {
+							personagem.aparencia = 7;
+						} else if (personagem.aparencia == 7) {
 							personagem.aparencia = 0;
 						}
 
@@ -54,8 +54,8 @@ public class Movimento {
 					} else if (personagem.aparencia == 2) {
 						personagem.aparencia = 0;
 					} else if (personagem.aparencia == 0) {
-						personagem.aparencia = 3;
-					} else if (personagem.aparencia == 3) {
+						personagem.aparencia = 7;
+					} else if (personagem.aparencia == 7) {
 						personagem.aparencia = 1;
 					}
 					Thread.sleep(200);
@@ -77,7 +77,7 @@ public class Movimento {
 						esquerda.run();
 
 
-					} else if (personagem.aparencia == 3) {
+					} else if (personagem.aparencia == 7) {
 
 						direita.run();
 					}
@@ -85,7 +85,7 @@ public class Movimento {
 				} else if (main.getDirecao().equals("180")) {
 
 				}
-				Thread.sleep(1000);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

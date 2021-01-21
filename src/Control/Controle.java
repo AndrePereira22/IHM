@@ -77,25 +77,36 @@ public class Controle implements Runnable, ActionListener {
 
 		}
 		if (e.getSource() == componentes.getBtnRight()) {
+			
+			if(movimento.getLista().size()<16) {
 			movimento.addMovimento("right");
-
 			exibirComando("direita");
+			}
 		}
 		if (e.getSource() == componentes.getBtnLeft()) {
+			
+			if(movimento.getLista().size()<16) {
 			movimento.addMovimento("left");
 			exibirComando("esquerda");
+			}
 
 		}
 
 		if (e.getSource() == componentes.getBtnUp()) {
+			
+			if(movimento.getLista().size()<16) {
 			movimento.addMovimento("up");
 			exibirComando("cima");
+			}
 
 		}
 		if (e.getSource() == componentes.getBtn180()) {
+			
+			if(movimento.getLista().size()<16) {
 
 			movimento.addMovimento("180");
 			exibirComando("180");
+			}
 
 		}
 		if (e.getSource() == componentes.getBtnPlay()) {
@@ -144,6 +155,7 @@ public class Controle implements Runnable, ActionListener {
 	}
 
 	public void exibirComando(String direcao) {
+		
 
 		Component label = componentes.getPainelArea().getComponent(indice);
 
@@ -152,11 +164,14 @@ public class Controle implements Runnable, ActionListener {
 
 		label.setVisible(true);
 		indice++;
+		
 
 	}
 
 	public void removerComando() {
 		int tamanho = movimento.getLista().size();
+		
+		if(tamanho>0) {
 		
 		Component label = componentes.getPainelArea().getComponent(tamanho-1);
 
@@ -166,6 +181,7 @@ public class Controle implements Runnable, ActionListener {
 		indice--;
 	
 		movimento.getLista().remove(tamanho-1);
+		}
 		
 
 	}
