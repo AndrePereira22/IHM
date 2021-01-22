@@ -54,7 +54,7 @@ public class Direita implements Runnable {
 		else
 			right++;
 
-		if (contador == 44) {
+		if (contador == 40) {
 			ativo = false;
 			contador=0;
 			personagem.aparencia = 7;

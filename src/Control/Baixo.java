@@ -53,7 +53,7 @@ public class Baixo implements Runnable {
 		else
 			down++;
 
-		if (contador == 36) {
+		if (contador == 32) {
 			ativo = false;
 			contador=0;
 			personagem.aparencia = 0;

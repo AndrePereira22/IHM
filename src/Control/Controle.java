@@ -9,8 +9,10 @@ import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Model.Bloco;
 import Model.MainList;
 import Model.Sprite;
 import View.Componente;
@@ -31,7 +33,7 @@ public class Controle implements Runnable, ActionListener {
 	private Sprite personagem;
 	private static HashMap<Integer, Boolean> keyPool;
 	private Movimento movimento;
-	private int indice = 0;
+	private int indice = 0, faseAtual = 0;
 
 	public Controle(Janela janela) {
 
@@ -78,54 +80,56 @@ public class Controle implements Runnable, ActionListener {
 
 		}
 		if (e.getSource() == componentes.getBtnRight()) {
-			
-			if(movimento.getLista().size()<16) {
-			movimento.addMovimento("right");
-			exibirComando("direita");
+
+			if (movimento.getLista().size() < 16) {
+				movimento.addMovimento("right");
+				exibirComando("direita");
 			}
 		}
 		if (e.getSource() == componentes.getBtnLeft()) {
-			
-			if(movimento.getLista().size()<16) {
-			movimento.addMovimento("left");
-			exibirComando("esquerda");
+
+			if (movimento.getLista().size() < 16) {
+				movimento.addMovimento("left");
+				exibirComando("esquerda");
 			}
 
 		}
 
 		if (e.getSource() == componentes.getBtnUp()) {
-			
-			if(movimento.getLista().size()<16) {
-			movimento.addMovimento("up");
-			exibirComando("cima");
+
+			if (movimento.getLista().size() < 16) {
+				movimento.addMovimento("up");
+				exibirComando("cima");
 			}
 
 		}
 		if (e.getSource() == componentes.getBtn180()) {
-			
-			if(movimento.getLista().size()<16) {
 
-			movimento.addMovimento("giro");
-			exibirComando("180");
+			if (movimento.getLista().size() < 16) {
+
+				movimento.addMovimento("giro");
+				exibirComando("180");
 			}
 
 		}
-	if (e.getSource() == componentes.getBtnChutar()) {
-			
-			if(movimento.getLista().size()<16) {
+		if (e.getSource() == componentes.getBtnChutar()) {
 
-			movimento.addMovimento("chutar");
-			exibirComando("chute");
+			if (movimento.getLista().size() < 16) {
+
+				movimento.addMovimento("chutar");
+				exibirComando("chute");
 			}
 
 		}
-		
-		
-		
-		
-		
+
 		if (e.getSource() == componentes.getBtnPlay()) {
-			movimento.Play();
+
+			if (movimento.getLista().get(movimento.getLista().size()-1).getDirecao().equals("chutar")) {
+
+				movimento.Play();
+			} else {
+				JOptionPane.showMessageDialog(null, "Adiciono o comando de chutar no final.");
+			}
 
 		}
 		if (e.getSource() == componentes.getBtnApagarSequencia()) {
@@ -141,7 +145,7 @@ public class Controle implements Runnable, ActionListener {
 			runControleDoJogo();
 
 			try {
-			
+
 				Thread.sleep(15);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -170,7 +174,6 @@ public class Controle implements Runnable, ActionListener {
 	}
 
 	public void exibirComando(String direcao) {
-		
 
 		Component label = componentes.getPainelArea().getComponent(indice);
 
@@ -178,36 +181,45 @@ public class Controle implements Runnable, ActionListener {
 		img.setIcon(new ImageIcon(getClass().getResource("/" + direcao + ".png")));
 
 		label.setVisible(true);
-		indice++;
 		
+		
+		indice++;
 
 	}
 
 	public void removerComando() {
 		int tamanho = movimento.getLista().size();
-		
-		if(tamanho>0) {
-		
-		Component label = componentes.getPainelArea().getComponent(tamanho-1);
 
-		JLabel img = (JLabel) label;
+		if (tamanho > 0) {
 
-		img.setVisible(false);
-		indice--;
-	
-		movimento.getLista().remove(tamanho-1);
+			Component label = componentes.getPainelArea().getComponent(tamanho - 1);
+
+			JLabel img = (JLabel) label;
+
+			img.setVisible(false);
+			indice--;
+
+			movimento.getLista().remove(tamanho - 1);
 		}
-		
 
 	}
 
 	public void restar() {
-		for(Component label: componentes.getPainelArea().getComponents()) {
+		for (Component label : componentes.getPainelArea().getComponents()) {
 			JLabel img = (JLabel) label;
 
 			img.setVisible(false);
 		}
 		movimento.getLista().clear();
+	}
+
+	public void mudarFase() {
+		faseAtual++;
+		personagem.setX(personagem.getPosicoes().get(faseAtual).x);
+		personagem.setY(personagem.getPosicoes().get(faseAtual).y);
+
+		Bloco.getBarreiras().clear();
+
 	}
 
 }

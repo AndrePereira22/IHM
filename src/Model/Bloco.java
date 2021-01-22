@@ -15,7 +15,8 @@ public class Bloco {
 	private ImageIcon referencia;
 	private boolean isVisivel;
 
-	private static int[][] coordenadas = {{ 94,80},{ 94,115},{ 94,150},{ 94,185},{ 139,80},{ 184,80}};
+	private static int[][] coordenadas = {{ 94,80},{ 94,112},{ 94,144},{ 94,176},{ 134,80},{ 174,80},{ 214,80}};
+	//,{ 94,143},{ 94,173},{ 127,80},{ 157,80}
 
 	static ArrayList<Bloco> barreiras = new ArrayList<Bloco>();
 	

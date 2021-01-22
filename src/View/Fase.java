@@ -13,10 +13,11 @@ import Model.Trave;
 public class Fase  extends Jogo  {
 
 	private static final long serialVersionUID = 1L;
-	private Mapa mapa;
+	private Mapa mapa1;
 	private Sprite personagem;
 	private Bola bola;
 	private Trave trave;
+
 
 
 	public Fase() {
@@ -26,15 +27,20 @@ public class Fase  extends Jogo  {
 	}
 	
 	public void Load() {
-		mapa= new Mapa("tileset.png","camada.txt");
+		mapa1= new Mapa("tileset.png","camada.txt");
+	
+		
+		
 
-		mapa.montarMapa();
-		bola = new Bola(220,85);
-		trave = new Trave(350, 85);
+		mapa1.montarMapa();
+
+
+		bola = new Bola(188,85);
+		trave = new Trave(370, 50);
 		Bloco.inicializaBarreiras();
 		
 		try {
-		personagem = new Sprite("sprite.png",1,4,4,100,170);
+		personagem = new Sprite("sprite.png",1,4,4,96,153);
 			
 	} catch (IOException e) {
 
@@ -42,11 +48,11 @@ public class Fase  extends Jogo  {
 		
 	}
 	public void Update() {
-		mapa.montarMapa();	
+		mapa1.montarMapa();	
 	}
 	public void Render() {
 		
-		g.drawImage(mapa.getMapa(),0, 0, null);
+		g.drawImage(mapa1.getMapa(),0, 0, null);
 		
 		for (int i = 0; i < Bloco.getBarreiras().size(); i++) {
 			Bloco b =  Bloco.getBarreiras().get(i);
@@ -54,16 +60,14 @@ public class Fase  extends Jogo  {
 					g.drawImage(b.getImagem(), b.getX(), b.getY(), null);
 				}
 		}
-		
+	
+		g.drawImage(bola.getImagem(), bola.getX(), bola.getY(), null);
 	
 		g.drawImage(personagem.sprites[personagem.aparencia], personagem.getX(), personagem.getY(), null);
+	
 		
 		g.drawImage(trave.getImagem(), trave.getX(), trave.getY(), null);
-		
-		g.drawImage(bola.getImagem(), bola.getX(), bola.getY(), null);
-		
-		
-		
+			
 
 	}
 

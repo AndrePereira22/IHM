@@ -54,7 +54,7 @@ public class Frente implements Runnable {
 		else
 			up++;
 
-		if (contador == 36) {
+		if (contador == 32) {
 			ativo = false;
 			contador=0;
 			personagem.aparencia = 1;

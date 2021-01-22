@@ -19,8 +19,10 @@ public class Componente extends JPanel {
 	private JLabel lbl1;
 	private JButton btnRestart, btnApagarSequencia, menu;
 	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay,btnChutar;
-	private int[] x = { 10, 42, 74,106,10, 42, 74,106, 10, 42, 74, 106,10, 42, 74, 106 };
-	private int[] y = { 5, 5, 5,5, 46, 46, 46,46, 91, 91, 91, 91,136,136,136,136 };
+	private int[] posXLabel = { 10, 42, 74,106,10, 42, 74,106, 10, 42, 74, 106,10, 42, 74, 106 };
+	private int[] posYLabel = { 5, 5, 5,5, 46, 46, 46,46, 91, 91, 91, 91,136,136,136,136 };
+	
+	private int[] valorMainList = {7 };
 
 	public Componente(int largura, int altura) {
 
@@ -53,11 +55,7 @@ public class Componente extends JPanel {
 		lblMainArea.setBounds(510, 61, 120, 22);
 		add(lblMainArea);
 
-		lblTotal = new JLabel("1/1");
-		lblTotal.setForeground(Color.WHITE);
-		lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTotal.setBounds(636, 61, 61, 22);
-		add(lblTotal);
+	
 
 		painelFase = new JPanel();
 		painelFase.setBackground(Color.BLACK);
@@ -130,7 +128,7 @@ public class Componente extends JPanel {
 
 			lbl1 = new JLabel("");
 			lbl1.setIcon(new ImageIcon(getClass().getResource("/cima.png")));
-			lbl1.setBounds(x[i], y[i], 30, 35);
+			lbl1.setBounds(posXLabel[i], posYLabel[i], 30, 35);
 			lbl1.setVisible(false);
 			painelArea.add(lbl1);
 
@@ -188,6 +186,10 @@ public class Componente extends JPanel {
 
 	public JButton getBtnChutar() {
 		return btnChutar;
+	}
+
+	public int[] getValorMainList() {
+		return valorMainList;
 	}
 
 }
