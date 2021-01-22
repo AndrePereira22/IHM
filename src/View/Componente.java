@@ -18,7 +18,7 @@ public class Componente extends JPanel {
 	private JLabel lblComandos, lblMainArea, lblTotal;
 	private JLabel lbl1;
 	private JButton btnRestart, btnApagarSequencia, menu;
-	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay;
+	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay,btnChutar;
 	private int[] x = { 10, 42, 74,106,10, 42, 74,106, 10, 42, 74, 106,10, 42, 74, 106 };
 	private int[] y = { 5, 5, 5,5, 46, 46, 46,46, 91, 91, 91, 91,136,136,136,136 };
 
@@ -105,6 +105,12 @@ public class Componente extends JPanel {
 		btn180.setBounds(244, 11, 67, 69);
 		btn180.setContentAreaFilled(false);
 		painelComandos.add(btn180);
+		
+		btnChutar = new JButton("");
+		btnChutar.setIcon(new ImageIcon(getClass().getResource("/chutar.png")));
+		btnChutar.setBounds(316, 11, 67, 69);
+		btnChutar.setContentAreaFilled(false);
+		painelComandos.add(btnChutar);
 
 		btnPlay = new JButton("");
 		btnPlay.setIcon(new ImageIcon(getClass().getResource("/play.png")));
@@ -178,6 +184,10 @@ public class Componente extends JPanel {
 
 	public JButton getBtnPlay() {
 		return btnPlay;
+	}
+
+	public JButton getBtnChutar() {
+		return btnChutar;
 	}
 
 }

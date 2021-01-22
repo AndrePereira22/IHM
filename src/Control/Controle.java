@@ -44,7 +44,7 @@ public class Controle implements Runnable, ActionListener {
 		this.personagem = fase.getPersonagem();
 
 		keyPool = new HashMap<Integer, Boolean>();
-		movimento = new Movimento(personagem);
+		movimento = new Movimento(personagem, fase);
 
 		controleEventos();
 
@@ -61,6 +61,7 @@ public class Controle implements Runnable, ActionListener {
 		componentes.getBtnLeft().addActionListener(this);
 		componentes.getBtnUp().addActionListener(this);
 		componentes.getBtn180().addActionListener(this);
+		componentes.getBtnChutar().addActionListener(this);
 		componentes.getBtnPlay().addActionListener(this);
 		componentes.getBtnApagarSequencia().addActionListener(this);
 	}
@@ -104,11 +105,25 @@ public class Controle implements Runnable, ActionListener {
 			
 			if(movimento.getLista().size()<16) {
 
-			movimento.addMovimento("180");
+			movimento.addMovimento("giro");
 			exibirComando("180");
 			}
 
 		}
+	if (e.getSource() == componentes.getBtnChutar()) {
+			
+			if(movimento.getLista().size()<16) {
+
+			movimento.addMovimento("chutar");
+			exibirComando("chute");
+			}
+
+		}
+		
+		
+		
+		
+		
 		if (e.getSource() == componentes.getBtnPlay()) {
 			movimento.Play();
 
