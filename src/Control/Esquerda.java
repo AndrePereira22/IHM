@@ -19,7 +19,7 @@ public class Esquerda implements Runnable{
 		while(ativo) {
 			
 			try {
-				System.out.println("esquerda");
+
 				esquerda();
 				Thread.sleep(300);
 			} catch (InterruptedException e) {

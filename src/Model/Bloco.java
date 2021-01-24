@@ -15,10 +15,11 @@ public class Bloco {
 	private ImageIcon referencia;
 	private boolean isVisivel;
 
-	private static int[][] coordenadas = {{ 94,80},{ 94,112},{ 94,144},{ 94,176},{ 134,80},{ 174,80},{ 214,80}};
-	//,{ 94,143},{ 94,173},{ 127,80},{ 157,80}
+	private static int[][] coordenadas2 = {{ 90,176},{ 54,176},{ 54,208},{ 54,240},{ 94,240},{ 134,240},{ 174,240}};
+	
+	private static int[][] coordenadas1 = {{ 80,80},{ 80,121},{ 80,162},{ 80,203},{ 121,80},{ 162,80}};
 
-	static ArrayList<Bloco> barreiras = new ArrayList<Bloco>();
+	private static ArrayList<Bloco> barreiras = new ArrayList<Bloco>();
 	
 
 	public Bloco(int x, int y) {
@@ -35,7 +36,7 @@ public class Bloco {
 		
 		isVisivel = true;
 	}
-	public static void inicializaBarreiras() {
+	public static void inicializaBarreiras(int[][] coordenadas) {
 		for (int i = 0; i < coordenadas.length; i++) {
 			barreiras.add(new Bloco(coordenadas[i][0], coordenadas[i][1]));
 			
@@ -65,8 +66,11 @@ public class Bloco {
 		return new Rectangle(x, y, largura, altura);
 	}
 
-	public int[][] getCoordenadas() {
-		return coordenadas;
+	public static  int[][] getCoordenadas1() {
+		return coordenadas1;
+	}
+	public static int[][] getCoordenadas2() {
+		return coordenadas2;
 	}
 	public void setVisivel(boolean isVisivel) {
 		this.isVisivel = isVisivel;

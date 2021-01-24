@@ -17,8 +17,8 @@ public class Sprite extends Thread {
 	public int aparencia;
 	public BufferedImage[] sprites;
 	private BufferedImage spriteSheet;
-	private  int[] posX = { 100, 200 };
-	private int[] posY = { 170, 300 };
+	private  int[] posX = { 82, 82 };
+	private int[] posY = { 184, 184 };
 	private  ArrayList<Point> posicoes =new ArrayList<Point>();
 
 	public Sprite(String url, int aparencia, int columns, int rows, int posX, int posY) throws IOException {
@@ -45,7 +45,7 @@ public class Sprite extends Thread {
 
 	private void addPosicoes() {
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < posX.length; i++) {
 			posicoes.add(new Point(posX[i], posY[i]));
 
 		}

@@ -18,8 +18,6 @@ public class Fase  extends Jogo  {
 	private Bola bola;
 	private Trave trave;
 
-
-
 	public Fase() {
 		super();
 		Load();
@@ -28,19 +26,15 @@ public class Fase  extends Jogo  {
 	
 	public void Load() {
 		mapa1= new Mapa("tileset.png","camada.txt");
-	
-		
-		
 
 		mapa1.montarMapa();
 
 
-		bola = new Bola(188,85);
+		bola = new Bola(174,88);
 		trave = new Trave(370, 50);
-		Bloco.inicializaBarreiras();
-		
+		Bloco.inicializaBarreiras(Bloco.getCoordenadas1());
 		try {
-		personagem = new Sprite("sprite.png",1,4,4,96,153);
+		personagem = new Sprite("sprite.png",1,4,4,82,184);
 			
 	} catch (IOException e) {
 

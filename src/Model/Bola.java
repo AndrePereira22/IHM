@@ -2,7 +2,7 @@
 package Model;
 
 import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -10,11 +10,19 @@ import javax.swing.JLabel;
 
 public class Bola extends JLabel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Image imagem;
 	private int x, y;
 	private int largura, altura;
 	private ImageIcon referencia;
 	private boolean isVisivel;
+	private int[] posX = { 188, 185 };
+	private int[] posY = { 85, 245 };
+
+	private static ArrayList<Point> pontos = new ArrayList<Point>();
 
 	public Bola(int x, int y) {
 
@@ -28,7 +36,19 @@ public class Bola extends JLabel {
 		this.largura = imagem.getWidth(null);
 		this.altura = imagem.getHeight(null);
 
+		addPosicoes();
+
 		isVisivel = true;
+	}
+
+	@SuppressWarnings("unused")
+	private void addPosicoes() {
+
+		for (int i = 0; i < posX.length; i++) {
+			pontos.add(new Point(posX[i], posY[i]));
+
+		}
+
 	}
 
 	public Image getImagem() {
@@ -69,6 +89,10 @@ public class Bola extends JLabel {
 
 	public void setVisivel(boolean isVisivel) {
 		this.isVisivel = isVisivel;
+	}
+
+	public ArrayList<Point> getPontos() {
+		return pontos;
 	}
 
 }

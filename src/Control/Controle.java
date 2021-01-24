@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Model.Bloco;
+import Model.Bola;
 import Model.MainList;
 import Model.Sprite;
 import View.Componente;
@@ -30,6 +31,7 @@ public class Controle implements Runnable, ActionListener {
 	private Opcao opcao;
 	private Menu menu;
 	private Entrada entrada;
+	private Bola bola;
 	private Sprite personagem;
 	private static HashMap<Integer, Boolean> keyPool;
 	private Movimento movimento;
@@ -43,6 +45,7 @@ public class Controle implements Runnable, ActionListener {
 		this.fase = janela.getFase();
 		this.opcao = janela.getOpcao();
 		this.entrada = janela.getEntrada();
+		this.bola = fase.getBola();
 		this.personagem = fase.getPersonagem();
 
 		keyPool = new HashMap<Integer, Boolean>();
@@ -120,11 +123,13 @@ public class Controle implements Runnable, ActionListener {
 				exibirComando("chute");
 			}
 
+		
+
 		}
 
 		if (e.getSource() == componentes.getBtnPlay()) {
 
-			if (movimento.getLista().get(movimento.getLista().size()-1).getDirecao().equals("chutar")) {
+			if (movimento.getLista().get(movimento.getLista().size() - 1).getDirecao().equals("chutar")) {
 
 				movimento.Play();
 			} else {
@@ -179,10 +184,9 @@ public class Controle implements Runnable, ActionListener {
 
 		JLabel img = (JLabel) label;
 		img.setIcon(new ImageIcon(getClass().getResource("/" + direcao + ".png")));
-
+		
 		label.setVisible(true);
-		
-		
+
 		indice++;
 
 	}
@@ -200,6 +204,7 @@ public class Controle implements Runnable, ActionListener {
 			indice--;
 
 			movimento.getLista().remove(tamanho - 1);
+			
 		}
 
 	}
@@ -214,11 +219,17 @@ public class Controle implements Runnable, ActionListener {
 	}
 
 	public void mudarFase() {
+
 		faseAtual++;
-		personagem.setX(personagem.getPosicoes().get(faseAtual).x);
-		personagem.setY(personagem.getPosicoes().get(faseAtual).y);
 
 		Bloco.getBarreiras().clear();
+
+		if (faseAtual == 1) {
+			Bloco.inicializaBarreiras(Bloco.getCoordenadas2());
+
+			bola.setX(bola.getPontos().get(faseAtual).x);
+			bola.setY(bola.getPontos().get(faseAtual).y);
+		}
 
 	}
 

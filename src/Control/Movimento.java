@@ -10,7 +10,7 @@ import View.Fase;
 public class Movimento {
 
 	private Sprite personagem;
-	private boolean ativo = false;
+
 	private Direita direita;
 	private Esquerda esquerda;
 	private Frente cima;
@@ -28,7 +28,7 @@ public class Movimento {
 		this.baixo = new Baixo(personagem);
 		this.fase = fase;
 		this.bola = fase.getBola();
-		this.moverBola = new MoverBola(bola);
+		this.moverBola = new MoverBola(bola,personagem);
 
 	}
 
