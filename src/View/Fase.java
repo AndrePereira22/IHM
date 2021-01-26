@@ -18,23 +18,23 @@ public class Fase  extends Jogo  {
 	private Bola bola;
 	private Trave trave;
 
-	public Fase() {
-		super();
-		Load();
+	public Fase(String img) {
+		super(img);
+		Load(img);
 	
 	}
 	
-	public void Load() {
-		mapa1= new Mapa("tileset.png","camada.txt");
+	public void Load(String img) {
+		mapa1= new Mapa("campo.png","camada.txt");
 
 		mapa1.montarMapa();
 
 
 		bola = new Bola(174,88);
-		trave = new Trave(370, 50);
+		trave = new Trave(370, 70);
 		Bloco.inicializaBarreiras(Bloco.getCoordenadas1());
 		try {
-		personagem = new Sprite("sprite.png",1,4,4,82,184);
+		personagem = new Sprite(img,1,4,4,82,184);
 			
 	} catch (IOException e) {
 
@@ -55,12 +55,13 @@ public class Fase  extends Jogo  {
 				}
 		}
 	
-		g.drawImage(bola.getImagem(), bola.getX(), bola.getY(), null);
+		
 	
 		g.drawImage(personagem.sprites[personagem.aparencia], personagem.getX(), personagem.getY(), null);
 	
 		
 		g.drawImage(trave.getImagem(), trave.getX(), trave.getY(), null);
+		g.drawImage(bola.getImagem(), bola.getX(), bola.getY(), null);
 			
 
 	}

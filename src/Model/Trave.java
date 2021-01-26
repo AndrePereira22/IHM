@@ -21,7 +21,7 @@ public class Trave {
 		this.x = x;
 		this.y = y;
 
-		referencia = new ImageIcon(getClass().getResource("/trave.png"));
+		referencia = new ImageIcon(getClass().getResource("/trave1.png"));
 
 		imagem = referencia.getImage();
 		

@@ -3,9 +3,6 @@ package Control;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -14,7 +11,6 @@ import javax.swing.JPanel;
 
 import Model.Bloco;
 import Model.Bola;
-import Model.MainList;
 import Model.Sprite;
 import View.Componente;
 import View.Entrada;
@@ -33,23 +29,20 @@ public class Controle implements Runnable, ActionListener {
 	private Entrada entrada;
 	private Bola bola;
 	private Sprite personagem;
-	private static HashMap<Integer, Boolean> keyPool;
 	private Movimento movimento;
 	private int indice = 0, faseAtual = 0;
+	private boolean menino = false;;
+	private int[] posXLabel = { 10, 42, 74, 106, 10, 42, 74, 106, 10, 42, 74, 106, 10, 42, 74, 106, 10, 42, 74, 106 };
+	private int[] posYLabel = { 5, 5, 5, 5, 46, 46, 46, 46, 91, 91, 91, 91, 136, 136, 136, 136, 181, 181, 181, 181 };
 
 	public Controle(Janela janela) {
 
 		this.janela = janela;
 		this.componentes = janela.getComponentes();
 		this.menu = janela.getMenu();
-		this.fase = janela.getFase();
+
 		this.opcao = janela.getOpcao();
 		this.entrada = janela.getEntrada();
-		this.bola = fase.getBola();
-		this.personagem = fase.getPersonagem();
-
-		keyPool = new HashMap<Integer, Boolean>();
-		movimento = new Movimento(personagem, fase);
 
 		controleEventos();
 
@@ -62,12 +55,15 @@ public class Controle implements Runnable, ActionListener {
 		menu.getSair().addActionListener(this);
 		menu.getAjuda().addActionListener(this);
 		opcao.getBtnIniciar().addActionListener(this);
+		opcao.getBtnMenina().addActionListener(this);
+		opcao.getBtnMenino().addActionListener(this);
 		componentes.getBtnRight().addActionListener(this);
 		componentes.getBtnLeft().addActionListener(this);
 		componentes.getBtnUp().addActionListener(this);
 		componentes.getBtn180().addActionListener(this);
 		componentes.getBtnChutar().addActionListener(this);
 		componentes.getBtnPlay().addActionListener(this);
+		componentes.getBtnRepetir().addActionListener(this);
 		componentes.getBtnApagarSequencia().addActionListener(this);
 	}
 
@@ -78,52 +74,67 @@ public class Controle implements Runnable, ActionListener {
 
 		}
 		if (e.getSource() == opcao.getBtnIniciar()) {
+
+			if (menino) {
+				this.fase = new Fase("sprite1.png");
+			} else {
+				this.fase = new Fase("sprite2.png");
+			}
+
+			componentes.getPainelFase().add(fase);
+			this.bola = fase.getBola();
+			this.personagem = fase.getPersonagem();
+			this.movimento = new Movimento(personagem, fase);
+
 			MudarTela(componentes, opcao);
 			janela.TamanhoFase();
 
 		}
+		if (e.getSource() == opcao.getBtnMenina()) {
+
+			menino = false;
+		}
+		if (e.getSource() == opcao.getBtnMenino()) {
+			menino = true;
+
+		}
+		if (e.getSource() == componentes.getBtnRepetir()) {
+
+			if (movimento.getLista().size() > 0) {
+				addUltimo();
+				addComando("loop");
+			}
+
+		}
 		if (e.getSource() == componentes.getBtnRight()) {
 
-			if (movimento.getLista().size() < 16) {
-				movimento.addMovimento("right");
-				exibirComando("direita");
-			}
+			movimento.addMovimento("right");
+			addComando("direita");
+
 		}
 		if (e.getSource() == componentes.getBtnLeft()) {
 
-			if (movimento.getLista().size() < 16) {
-				movimento.addMovimento("left");
-				exibirComando("esquerda");
-			}
+			movimento.addMovimento("left");
+			addComando("esquerda");
 
 		}
 
 		if (e.getSource() == componentes.getBtnUp()) {
 
-			if (movimento.getLista().size() < 16) {
-				movimento.addMovimento("up");
-				exibirComando("cima");
-			}
+			movimento.addMovimento("up");
+			addComando("cima");
 
 		}
 		if (e.getSource() == componentes.getBtn180()) {
 
-			if (movimento.getLista().size() < 16) {
-
-				movimento.addMovimento("giro");
-				exibirComando("180");
-			}
+			movimento.addMovimento("giro");
+			addComando("180");
 
 		}
 		if (e.getSource() == componentes.getBtnChutar()) {
 
-			if (movimento.getLista().size() < 16) {
-
-				movimento.addMovimento("chutar");
-				exibirComando("chute");
-			}
-
-		
+			movimento.addMovimento("chutar");
+			addComando("chute");
 
 		}
 
@@ -178,16 +189,18 @@ public class Controle implements Runnable, ActionListener {
 
 	}
 
-	public void exibirComando(String direcao) {
+	public void addComando(String direcao) {
+		if (movimento.getLista().size() < 21) {
+			JLabel label = new JLabel();
 
-		Component label = componentes.getPainelArea().getComponent(indice);
+			label.setIcon(new ImageIcon(getClass().getResource("/" + direcao + ".png")));
+			label.setBounds(posXLabel[indice], posYLabel[indice], 30, 30);
+			componentes.getPainelArea().add(label);
 
-		JLabel img = (JLabel) label;
-		img.setIcon(new ImageIcon(getClass().getResource("/" + direcao + ".png")));
-		
-		label.setVisible(true);
+			indice++;
+			setVisible();
 
-		indice++;
+		}
 
 	}
 
@@ -198,13 +211,13 @@ public class Controle implements Runnable, ActionListener {
 
 			Component label = componentes.getPainelArea().getComponent(tamanho - 1);
 
-			JLabel img = (JLabel) label;
+			componentes.getPainelArea().remove(label);
 
-			img.setVisible(false);
 			indice--;
 
 			movimento.getLista().remove(tamanho - 1);
-			
+			setVisible();
+
 		}
 
 	}
@@ -231,6 +244,19 @@ public class Controle implements Runnable, ActionListener {
 			bola.setY(bola.getPontos().get(faseAtual).y);
 		}
 
+	}
+
+	public void addUltimo() {
+
+		int tamanho = movimento.getLista().size();
+		String comando = movimento.getLista().get(tamanho - 1).getDirecao();
+		movimento.addMovimento(comando);
+
+	}
+
+	public void setVisible() {
+		componentes.getPainelArea().setVisible(false);
+		componentes.getPainelArea().setVisible(true);
 	}
 
 }

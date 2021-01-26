@@ -12,7 +12,7 @@ public abstract class Jogo extends JPanel implements Runnable {
 
 	//dimensões
 		public static final int  LARGURA=448;
-		public static final int  ALTURA=352;
+		public static final int  ALTURA=370;
 	
 	private Thread thread;
 	private boolean running;
@@ -24,15 +24,15 @@ public abstract class Jogo extends JPanel implements Runnable {
 	@SuppressWarnings("unused")
 	private Double averageFPS;
 
-	public Jogo() {
+	public Jogo(String img) {
 		super();
 		setPreferredSize(new Dimension(LARGURA,ALTURA));
 		setFocusable(true);
 		requestFocus();
-		Load();
+		Load(img);
 	}
 	
-	public abstract void Load();
+	public abstract void Load(String img);
 	
 	 public void terminate() {
 		 
