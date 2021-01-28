@@ -2,6 +2,7 @@ package Control;
 
 import java.util.ArrayList;
 
+import Model.Audio;
 import Model.Bola;
 import Model.MainList;
 import Model.Sprite;
@@ -16,20 +17,21 @@ public class Movimento {
 	private Frente cima;
 	private MoverBola moverBola;
 	private Baixo baixo;
-	private Fase fase;
 	private ArrayList<MainList> lista = new ArrayList<MainList>();
 	private Bola bola;
+	private Audio audio;
 
-	public Movimento(Sprite player1, Fase fase) {
+	public Movimento(Sprite player1, Fase fase, Audio audio) {
 		this.personagem = player1;
+		this.audio = audio;
 		this.direita = new Direita(personagem);
 		this.esquerda = new Esquerda(personagem);
 		this.cima = new Frente(personagem);
 		this.baixo = new Baixo(personagem);
-		this.fase = fase;
 		this.bola = fase.getBola();
-		this.moverBola = new MoverBola(bola,personagem);
+		this.moverBola = new MoverBola(bola, personagem, audio,fase);
 
+		moverBola.addPosicoes();
 	}
 
 	public void Play() {
@@ -107,10 +109,15 @@ public class Movimento {
 					}
 
 				} else if (main.getDirecao().equals("chutar")) {
-
+					
+					audio.getChute().start();
+				
 					try {
 
+						
+
 						if (personagem.aparencia == 7) {
+
 							personagem.aparencia = 3;
 
 							if (verificarRight()) {
@@ -119,43 +126,36 @@ public class Movimento {
 
 								moverBola.run();
 							}
-		
 
 						} else if (personagem.aparencia == 0) {
-							personagem.aparencia = 12;
-							
-							
-						
+							personagem.aparencia = 4;
+
 							if (verificarDown()) {
 
 								moverBola.setDirecao("down");
 
 								moverBola.run();
 							}
-					
-							
 
 						} else if (personagem.aparencia == 1) {
-							personagem.aparencia = 13;
-							
+							personagem.aparencia = 5;
+
 							if (verificarUp()) {
 
 								moverBola.setDirecao("up");
 
 								moverBola.run();
 							}
-						
 
 						} else if (personagem.aparencia == 2) {
 							personagem.aparencia = 6;
-							
+
 							if (verificarLeft()) {
 
 								moverBola.setDirecao("left");
 
 								moverBola.run();
 							}
-			
 
 						}
 
@@ -165,7 +165,7 @@ public class Movimento {
 					}
 
 				}
-				Thread.sleep(400);
+				Thread.sleep(240);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -184,26 +184,25 @@ public class Movimento {
 		if (diferenca < 0)
 			diferenca = diferenca * -1;
 
-		if (bola.getX() > personagem.getX()) {
+		if (bola.getX() > personagem.getX() && diferenca < 53) {
 
-			if (diferenca < 53) {
-				return true;
-			}
+			return true;
 
 		}
 
 		return false;
 	}
+
 	public boolean verificarLeft() {
 
-		int diferenca = personagem.getX()- bola.getX();
+		int diferenca = personagem.getX() - bola.getX();
 
 		if (diferenca < 0)
 			diferenca = diferenca * -1;
 
 		if (bola.getX() < personagem.getX()) {
 
-			if (diferenca < 30) {
+			if (diferenca < 73) {
 				return true;
 			}
 
@@ -211,6 +210,7 @@ public class Movimento {
 
 		return false;
 	}
+
 	public boolean verificarUp() {
 
 		int diferenca = personagem.getY() - bola.getY();
@@ -220,7 +220,7 @@ public class Movimento {
 
 		if (bola.getY() < personagem.getY()) {
 
-			if (diferenca < 6) {
+			if (diferenca < 85) {
 				return true;
 			}
 
@@ -228,25 +228,23 @@ public class Movimento {
 
 		return false;
 	}
-	
-	
+
 	public boolean verificarDown() {
 
 		int diferenca = bola.getY() - personagem.getY();
 
-		if (diferenca < 0) diferenca = diferenca * -1;
+		if (diferenca < 0)
+			diferenca = diferenca * -1;
 
 		if (bola.getY() > personagem.getY()) {
 
-			if (diferenca < 61) {
+			if (diferenca < 65) {
 				return true;
 			}
 
 		}
 		return false;
 	}
-	
-	
 
 	public void addMovimento(String direcao) {
 

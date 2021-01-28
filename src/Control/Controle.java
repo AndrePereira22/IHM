@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Model.Bloco;
+import Model.Audio;
 import Model.Bola;
 import Model.Sprite;
 import View.Componente;
@@ -18,6 +18,7 @@ import View.Fase;
 import View.Janela;
 import View.Menu;
 import View.Opcao;
+import View.Stage;
 
 public class Controle implements Runnable, ActionListener {
 
@@ -25,8 +26,10 @@ public class Controle implements Runnable, ActionListener {
 	private Componente componentes;
 	private Fase fase;
 	private Opcao opcao;
+	private Audio audio;
 	private Menu menu;
 	private Entrada entrada;
+	private Stage stage;
 	private Bola bola;
 	private Sprite personagem;
 	private Movimento movimento;
@@ -40,10 +43,11 @@ public class Controle implements Runnable, ActionListener {
 		this.janela = janela;
 		this.componentes = janela.getComponentes();
 		this.menu = janela.getMenu();
-
+		this.audio = new Audio();
 		this.opcao = janela.getOpcao();
 		this.entrada = janela.getEntrada();
-
+		this.stage=janela.getStage();
+		audio.getMusica().loop(100);
 		controleEventos();
 
 		janela.setVisible(true);
@@ -65,6 +69,7 @@ public class Controle implements Runnable, ActionListener {
 		componentes.getBtnPlay().addActionListener(this);
 		componentes.getBtnRepetir().addActionListener(this);
 		componentes.getBtnApagarSequencia().addActionListener(this);
+		stage.getBtnFase1().addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -73,22 +78,16 @@ public class Controle implements Runnable, ActionListener {
 			MudarTela(entrada, menu);
 
 		}
+		
+		if (e.getSource() == stage.getBtnFase1()) {
+			
+		iniciar();
+
+		}
 		if (e.getSource() == opcao.getBtnIniciar()) {
 
-			if (menino) {
-				this.fase = new Fase("sprite1.png");
-			} else {
-				this.fase = new Fase("sprite2.png");
-			}
 
-			componentes.getPainelFase().add(fase);
-			this.bola = fase.getBola();
-			this.personagem = fase.getPersonagem();
-			this.movimento = new Movimento(personagem, fase);
-
-			MudarTela(componentes, opcao);
-			janela.TamanhoFase();
-
+			MudarTela(stage, opcao);
 		}
 		if (e.getSource() == opcao.getBtnMenina()) {
 
@@ -235,15 +234,10 @@ public class Controle implements Runnable, ActionListener {
 
 		faseAtual++;
 
-		Bloco.getBarreiras().clear();
 
-		if (faseAtual == 1) {
-			Bloco.inicializaBarreiras(Bloco.getCoordenadas2());
-
-			bola.setX(bola.getPontos().get(faseAtual).x);
-			bola.setY(bola.getPontos().get(faseAtual).y);
-		}
-
+	}
+	public void Iniciar() {
+		
 	}
 
 	public void addUltimo() {
@@ -253,10 +247,26 @@ public class Controle implements Runnable, ActionListener {
 		movimento.addMovimento(comando);
 
 	}
+	public void iniciar() {
+		if (menino) {
+			this.fase = new Fase("sprite1.png");
+		} else {
+			this.fase = new Fase("sprite2.png");
+		}
+
+		componentes.getPainelFase().add(fase);
+		this.bola = fase.getBola();
+		this.personagem = fase.getPersonagem();
+		this.movimento = new Movimento(personagem, fase,audio);
+		
+		janela.TamanhoFase();
+		audio.getMusica().stop();
+		MudarTela(componentes, stage);
+	}
 
 	public void setVisible() {
-		componentes.getPainelArea().setVisible(false);
-		componentes.getPainelArea().setVisible(true);
+		componentes.getPainelArea().repaint();
+
 	}
 
 }

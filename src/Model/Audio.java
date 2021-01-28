@@ -1,52 +1,46 @@
 package Model;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.net.URL;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Audio {
 
-	AudioClip bonus,morte,batalha,explosao,grito1,grito2,risada;
+	private Clip musica, chute, gol;
 
 	public Audio() {
-		URL url1 = getClass().getResource("/Bonus.mid");
-		URL url2 = getClass().getResource("/Die.mid");
-		URL url3 = getClass().getResource("/Battle.mid");
-		URL url4 = getClass().getResource("/Explosion.mid");
-		URL url5 = getClass().getResource("/grito1.wav");
-		URL url6 = getClass().getResource("/grito1.wav");
-		URL url7 = getClass().getResource("/risada.wav");
+		try {
+			AudioInputStream audioMusica = AudioSystem.getAudioInputStream(new File("resource/musica.wav").getAbsoluteFile());
+			AudioInputStream audioChute = AudioSystem.getAudioInputStream(new File("resource/chute.wav").getAbsoluteFile());
+			AudioInputStream audioGol = AudioSystem.getAudioInputStream(new File("resource/gol.wav").getAbsoluteFile());
 
-		bonus = Applet.newAudioClip(url1);
-		morte = Applet.newAudioClip(url2);
-		batalha = Applet.newAudioClip(url3);
-		explosao = Applet.newAudioClip(url4);
-		grito1= Applet.newAudioClip(url5);
-		grito2 = Applet.newAudioClip(url6);
-		risada = Applet.newAudioClip(url7);
-		
+			musica = AudioSystem.getClip();
+			musica.open(audioMusica);
+
+			chute = AudioSystem.getClip();
+			chute.open(audioChute);
+
+			gol = AudioSystem.getClip();
+			gol.open(audioGol);
+
+		} catch (Exception ex) {
+			System.out.println("Erro ao executar SOM!");
+			ex.printStackTrace();
+		}
+
 	}
-	public AudioClip getBonus() {
-		return bonus;
+
+	public Clip getMusica() {
+		return musica;
 	}
-	public AudioClip getMorte() {
-		return morte;
+
+	public Clip getChute() {
+		return chute;
 	}
-	public AudioClip getBatalha() {
-		return batalha;
+
+	public Clip getGol() {
+		return gol;
 	}
-	public AudioClip getExplosao() {
-		return explosao;
-	}
-	public AudioClip getGrito1() {
-		return grito1;
-	}
-	public AudioClip getGrito2() {
-		return grito2;
-	}
-	public AudioClip getRisada() {
-		return risada;
-	}
-	
-	
+
 }

@@ -34,7 +34,7 @@ public class Opcao extends JPanel {
 		lblIdade = new JLabel("IDADE :");
 		lblIdade.setForeground(Color.RED);
 		lblIdade.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblIdade.setBounds(90, 328, 87, 14);
+		lblIdade.setBounds(90, 288, 87, 14);
 		add(lblIdade);
 
 		txtJogador = new JTextField();
@@ -43,13 +43,13 @@ public class Opcao extends JPanel {
 		txtJogador.setColumns(10);
 
 		txtIdade = new JTextField();
-		txtIdade.setBounds(185, 324, 178, 20);
+		txtIdade.setBounds(185, 284, 178, 20);
 		add(txtIdade);
 		txtIdade.setColumns(10);
 		
 
 		btnMenina = new JButton("");
-		btnMenina .setIcon(new ImageIcon(getClass().getResource("/menina.png")));
+		btnMenina .setIcon(new ImageIcon(getClass().getResource("/argentina.png")));
 		btnMenina .setContentAreaFilled(false);
 		btnMenina .setBounds(270, 380, 62, 69);
 		btnMenina.setBorder(null);
@@ -57,7 +57,7 @@ public class Opcao extends JPanel {
 		
 
 		btnMenino = new JButton("");
-		btnMenino .setIcon(new ImageIcon(getClass().getResource("/menino.png")));
+		btnMenino .setIcon(new ImageIcon(getClass().getResource("/brasil.png")));
 		btnMenino .setContentAreaFilled(false);
 		btnMenino .setBounds(230, 380, 62, 69);
 		btnMenino.setBorder(null);

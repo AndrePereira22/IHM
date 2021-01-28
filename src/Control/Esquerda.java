@@ -21,7 +21,7 @@ public class Esquerda implements Runnable{
 			try {
 
 				esquerda();
-				Thread.sleep(300);
+				Thread.sleep(150);
 			} catch (InterruptedException e) {
 				System.out.println("parou esquerda");
 				// TODO Auto-generated catch block
@@ -56,7 +56,7 @@ public class Esquerda implements Runnable{
 		else
 			left++;
 		
-		if(contador==40) {
+		if(contador==32) {
 			ativo=false;
 			contador=0;
 			personagem.aparencia = 2;

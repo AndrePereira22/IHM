@@ -20,7 +20,7 @@ public class Direita implements Runnable {
 			try {
 
 				direita();
-				Thread.sleep(300);
+				Thread.sleep(180);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -54,7 +54,7 @@ public class Direita implements Runnable {
 		else
 			right++;
 
-		if (contador == 40) {
+		if (contador == 32) {
 			ativo = false;
 			contador=0;
 			personagem.aparencia = 7;

@@ -2,6 +2,7 @@
 package Model;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -14,7 +15,11 @@ public class Trave {
 	private int largura, altura;
 	private ImageIcon referencia;
 	private boolean isVisivel;
+	
+	private int[] posX = { 430,8};
+	private int[] posY = { 161,162};
 
+	private static ArrayList<Point> pontos = new ArrayList<Point>();
 
 	public Trave(int x, int y) {
 
@@ -27,8 +32,21 @@ public class Trave {
 		
 		this.largura = imagem.getWidth(null);
 		this.altura = imagem.getHeight(null);
-		
+		addPosicoes();
 		isVisivel = true;
+	}
+	
+	@SuppressWarnings("unused")
+	private void addPosicoes() {
+
+		for (int i = 0; i < posX.length; i++) {
+			pontos.add(new Point(posX[i], posY[i]));
+
+		}
+
+	}
+	public Rectangle getBounds(){
+		return new Rectangle(x, y, largura, altura);
 	}
 
 	public Image getImagem() {

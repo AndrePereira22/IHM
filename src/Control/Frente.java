@@ -20,7 +20,7 @@ public class Frente implements Runnable {
 		while (ativo) {
 			try {
 				cima();
-				Thread.sleep(300);
+				Thread.sleep(150);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -54,7 +54,7 @@ public class Frente implements Runnable {
 		else
 			up++;
 
-		if (contador == 40) {
+		if (contador == 32) {
 			ativo = false;
 			contador=0;
 			personagem.aparencia = 1;

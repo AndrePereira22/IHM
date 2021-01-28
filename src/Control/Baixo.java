@@ -19,7 +19,7 @@ public class Baixo implements Runnable {
 		while (ativo) {
 			try {
 				baixo();
-				Thread.sleep(300);
+				Thread.sleep(150);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -53,7 +53,7 @@ public class Baixo implements Runnable {
 		else
 			down++;
 
-		if (contador == 40) {
+		if (contador == 32) {
 			ativo = false;
 			contador=0;
 			personagem.aparencia = 0;

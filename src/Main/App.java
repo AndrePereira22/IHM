@@ -10,7 +10,6 @@ public class App {
 		Janela janela = new Janela(800,600);
 		new Controle(janela).run();
 		
-
 	}
 
 }

@@ -19,8 +19,8 @@ public class Bola extends JLabel {
 	private int largura, altura;
 	private ImageIcon referencia;
 	private boolean isVisivel;
-	private int[] posX = { 188, 185 };
-	private int[] posY = { 85, 245 };
+	private int[] posX = { 172 };
+	private int[] posY = { 76 };
 
 	private static ArrayList<Point> pontos = new ArrayList<Point>();
 
@@ -36,19 +36,7 @@ public class Bola extends JLabel {
 		this.largura = imagem.getWidth(null);
 		this.altura = imagem.getHeight(null);
 
-		addPosicoes();
-
 		isVisivel = true;
-	}
-
-	@SuppressWarnings("unused")
-	private void addPosicoes() {
-
-		for (int i = 0; i < posX.length; i++) {
-			pontos.add(new Point(posX[i], posY[i]));
-
-		}
-
 	}
 
 	public Image getImagem() {
@@ -73,6 +61,14 @@ public class Bola extends JLabel {
 
 		this.y = posY;
 
+	}
+
+	public int[] getPosX() {
+		return posX;
+	}
+
+	public int[] getPosY() {
+		return posY;
 	}
 
 	public boolean isVisivel() {

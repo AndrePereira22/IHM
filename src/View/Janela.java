@@ -18,6 +18,7 @@ public class Janela extends JFrame {
 	private Opcao opcao;
 	private Entrada entrada;
 	private Fase fase;
+	private Stage stage;
 
 	public Janela(int largura, int altura) {
 
@@ -32,14 +33,17 @@ public class Janela extends JFrame {
 		menu = new Menu(800, 600);
 		componentes = new Componente(700, 650);
 		opcao = new Opcao(800, 600);
+		this.stage = new Stage(800,600);
 
 		entrada = new Entrada(800, 600);
 		opcao.setVisible(false);
 		componentes.setVisible(false);
+		
 
 		add(entrada);
 		add(menu);
 		add(opcao);
+		add(stage);
 		add(componentes);
 
 		Image iconeTitulo = Toolkit.getDefaultToolkit().getImage("baseDados\\caverna.png");
@@ -73,6 +77,10 @@ public class Janela extends JFrame {
 
 	public Entrada getEntrada() {
 		return entrada;
+	}
+
+	public Stage getStage() {
+		return stage;
 	}
 
 }
