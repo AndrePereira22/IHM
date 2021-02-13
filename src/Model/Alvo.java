@@ -2,6 +2,7 @@
 package Model;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -11,30 +12,45 @@ public class Alvo {
 
 	private Image imagem;
 	private int x, y;
-	private   int largura, altura;
+	private int largura, altura;
 	private ImageIcon referencia;
 	private boolean isVisivel;
-	private static  int[] posX = { 324,324,386 };
-	private static int[] posY = { 70,164,166 };
+	private static int[] posX = { 576 };
+	private static int[] posY = { 192 };
 
-	static ArrayList<Alvo> alvos = new ArrayList<Alvo>();
-	
+	private Point pontoA;
+	private Point pontoB;
 
-	public Alvo(int x, int y) {
+	public Alvo() {
 
-		this.x = x;
-		this.y = y;
+		pontoA = new Point(576, 192);
+		pontoB = new Point(64, 192);
+
+		this.x = pontoA.x;
+		this.y = pontoA.y;
 
 		referencia = new ImageIcon(getClass().getResource("/alvo.png"));
 
 		imagem = referencia.getImage();
-		
+
 		this.largura = imagem.getWidth(null);
 		this.altura = imagem.getHeight(null);
-		
+
 		isVisivel = true;
 	}
-	
+
+	public void mudarA() {
+		this.x = pontoA.x;
+		this.y = pontoA.y;
+
+	}
+
+	public void mudarB() {
+		this.x = pontoB.x;
+		this.y = pontoB.y;
+
+	}
+
 	public Image getImagem() {
 		return imagem;
 	}
@@ -51,17 +67,12 @@ public class Alvo {
 		return isVisivel;
 	}
 
-
-	public Rectangle getBounds(){
+	public Rectangle getBounds() {
 		return new Rectangle(x, y, largura, altura);
 	}
 
 	public void setVisivel(boolean isVisivel) {
 		this.isVisivel = isVisivel;
-	}
-
-	public static ArrayList<Alvo> getAlvos() {
-		return alvos;
 	}
 
 	public static int[] getPosX() {
@@ -76,9 +87,8 @@ public class Alvo {
 		return largura;
 	}
 
-	public  int getAltura() {
+	public int getAltura() {
 		return altura;
 	}
-	
 
 }

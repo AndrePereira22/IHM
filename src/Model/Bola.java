@@ -1,42 +1,86 @@
-
 package Model;
 
 import java.awt.Image;
-import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
-public class Bola extends JLabel {
+public class Bola implements Runnable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private Image imagem;
 	private int x, y;
 	private int largura, altura;
-	private ImageIcon referencia;
 	private boolean isVisivel;
-	private int[] posX = { 172 };
-	private int[] posY = { 76 };
+	private static final int VELOCIDADE = 4;
+	private String direcao;
+	private int limite;
+	private int contador=0;
 
-	private static ArrayList<Point> pontos = new ArrayList<Point>();
+	static ArrayList<Bola> bolas = new ArrayList<Bola>();
 
-	public Bola(int x, int y) {
+	public Bola(int x, int y, String d, int limite,String img) {
 
 		this.x = x;
 		this.y = y;
+		this.limite = limite;
 
-		referencia = new ImageIcon(getClass().getResource("/bola.png"));
-
+		ImageIcon referencia = new ImageIcon(getClass().getResource(img));
 		imagem = referencia.getImage();
 
 		this.largura = imagem.getWidth(null);
 		this.altura = imagem.getHeight(null);
 
+		this.direcao = d;
+
 		isVisivel = true;
+	
+	}
+
+	public void run() {
+	
+		while (isVisivel) {
+			mexer(direcao);
+			try {
+				Thread.sleep(80);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+	public void mexer(String direcao) {
+
+		if (direcao.equals("cima")) {
+			y -= VELOCIDADE;
+			contador += VELOCIDADE;
+		}
+		if (direcao.equals("baixo")) {
+			y += VELOCIDADE;
+			contador += VELOCIDADE;
+		}
+		if (direcao.equals("direita")) {
+			x += VELOCIDADE;
+			contador += VELOCIDADE;
+		}
+		if (direcao.equals("esquerda")) {
+			x -= VELOCIDADE;
+			contador += VELOCIDADE;
+
+		}
+
+		if (contador == limite) {
+			isVisivel = false;
+		}
+	}
+
+	public void setVisivel(boolean isVisivel) {
+		this.isVisivel = isVisivel;
+	}
+
+	public boolean getVisivel() {
+		return isVisivel;
 	}
 
 	public Image getImagem() {
@@ -51,28 +95,8 @@ public class Bola extends JLabel {
 		return y;
 	}
 
-	public void setX(int posX) {
-
-		this.x = posX;
-
-	}
-
-	public void setY(int posY) {
-
-		this.y = posY;
-
-	}
-
-	public int[] getPosX() {
-		return posX;
-	}
-
-	public int[] getPosY() {
-		return posY;
-	}
-
-	public boolean isVisivel() {
-		return isVisivel;
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, largura, altura);
 	}
 
 	public int getLargura() {
@@ -83,12 +107,13 @@ public class Bola extends JLabel {
 		return altura;
 	}
 
-	public void setVisivel(boolean isVisivel) {
-		this.isVisivel = isVisivel;
+	public static void add(Bola bola) {
+		bolas.add(bola);
+
 	}
 
-	public ArrayList<Point> getPontos() {
-		return pontos;
+	public static ArrayList<Bola> getBolas() {
+		return bolas;
 	}
 
 }

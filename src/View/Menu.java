@@ -26,15 +26,21 @@ public class Menu extends JPanel {
 		
 
 		jogar = new JButton("JOGAR");
-		jogar.setBounds(170, 468, 120, 23);
+		jogar.setContentAreaFilled(false);
+		jogar.setBounds(200, 448, 120, 63);
+		jogar.setIcon(new ImageIcon(getClass().getResource("/jogar.png")));
 		add(jogar);
 
 		ajuda = new JButton("AJUDA");
-		ajuda.setBounds(320, 468, 120, 23);
+		ajuda.setContentAreaFilled(false);
+		ajuda.setIcon(new ImageIcon(getClass().getResource("/ajuda.png")));
+		ajuda.setBounds(350, 448, 120, 63);
 		add(ajuda);
 
 		sair = new JButton("SAIR");
-		sair.setBounds(470, 468, 120, 23);
+		sair.setContentAreaFilled(false);
+		sair.setIcon(new ImageIcon(getClass().getResource("/sair.png")));
+		sair.setBounds(500, 448, 120, 63);
 		add(sair);
 		
 		

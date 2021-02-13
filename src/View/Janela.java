@@ -29,9 +29,11 @@ public class Janela extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		//setUndecorated(true);
+		setLocationRelativeTo(null);
+		
 
 		menu = new Menu(800, 600);
-		componentes = new Componente(700, 650);
+		componentes = new Componente(1000, 700);
 		opcao = new Opcao(800, 600);
 		this.stage = new Stage(800,600);
 
@@ -64,7 +66,7 @@ public class Janela extends JFrame {
 	}
 
 	public void TamanhoFase() {
-		setSize(700, 650);
+		setSize(1000, 660);
 	}
 
 	public void TamanhoMenu() {

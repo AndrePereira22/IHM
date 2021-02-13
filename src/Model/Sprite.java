@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
-import View.Componente;
+import View.Fase;
 
 public class Sprite extends Thread {
 
@@ -17,9 +17,9 @@ public class Sprite extends Thread {
 	public int aparencia;
 	public BufferedImage[] sprites;
 	private BufferedImage spriteSheet;
-	private int[] posX = { 66 };
-	private int[] posY = { 206 };
-	private ArrayList<Point> posicoes = new ArrayList<Point>();
+
+	private Point ponto = new Point(  128, 320);
+
 
 	public Sprite(String url, int aparencia, int columns, int rows, int posX, int posY) throws IOException {
 		spriteSheet = ImageIO.read(getClass().getClassLoader().getResource(url));
@@ -28,12 +28,11 @@ public class Sprite extends Thread {
 		this.largura = spriteSheet.getWidth() / columns;
 		this.altura = spriteSheet.getHeight() / rows;
 
-		this.rows = columns;
-		this.columns = rows;
+		this.setRows(columns);
+		this.setColumns(rows);
 		this.x = posX;
 		this.y = posY;
 
-		addPosicoes();
 
 		sprites = new BufferedImage[columns * rows];
 		for (int i = 0; i < columns; i++) {
@@ -43,14 +42,7 @@ public class Sprite extends Thread {
 		}
 	}
 
-	private void addPosicoes() {
 
-		for (int i = 0; i < posX.length; i++) {
-			posicoes.add(new Point(posX[i], posY[i]));
-
-		}
-
-	}
 
 	public boolean colisao(ArrayList<Rectangle> tmp, int x, int y) {
 		Rectangle personagem = new Rectangle(getX() + x, getY() + y, getLargura(), getAltura());
@@ -63,16 +55,29 @@ public class Sprite extends Thread {
 
 	}
 
-	public void setX(int posX) {
+	public boolean colisaoAlvo(Alvo tmp, int x, int y) {
+		Rectangle personagem = new Rectangle(getX() + x, getY() + y, getLargura(), getAltura());
 
-		this.x = posX;
+		Rectangle ball = new Rectangle(tmp.getX() + x, tmp.getY() + y, tmp.getLargura(), tmp.getAltura());
+
+		if (ball.intersects(personagem)) {
+			return true;
+		}
+
+		return false;
 
 	}
 
+	public void setX(int posX) {
+		if (!colisao(Fase.getRetangulosColisao(), posX - this.x, 0)) {
+			this.x = posX;
+		}
+	}
+
 	public void setY(int posY) {
-
-		this.y = posY;
-
+		if (!colisao(Fase.getRetangulosColisao(), 0, posY - this.y)) {
+			this.y = posY;
+		}
 	}
 
 	public int getX() {
@@ -95,8 +100,36 @@ public class Sprite extends Thread {
 		return largura;
 	}
 
-	public ArrayList<Point> getPosicoes() {
-		return posicoes;
+
+
+	public Point getPonto() {
+		return ponto;
 	}
+
+
+
+	public int getRows() {
+		return rows;
+	}
+
+
+
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
+
+
+
+	public int getColumns() {
+		return columns;
+	}
+
+
+
+	public void setColumns(int columns) {
+		this.columns = columns;
+	}
+
+
 
 }

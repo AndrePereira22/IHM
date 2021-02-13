@@ -1,9 +1,9 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.SystemColor;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,26 +16,37 @@ public class Componente extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel painelFase, painelArea, painelComandos,fundocomando;
+	private JPanel painelFase, painelArea, painelComandos, fundocomando;
 	private JLabel lblComandos;
 	private JLabel labelMain;
 	private JButton btnRestart, btnApagarSequencia, menu;
-	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay,btnChutar,btnRepetir;
+	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay, btnChutar;
+	private int[] posXLabel = { 20, 52, 84, 118, 150, 182, 214, 246, 278, 310, 342, 374, 406, 438, 470, 502, 534, 566,
+			598, 630, 662, 692, 722 };
+	private int[] posYLabel = { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
+			181 };
+	private int indice = 0;
+	private ImageIcon iconBaixo, iconCima, iconDireita, iconEsquerda;
 
-	
-	private int[] valorMainList = {7 };
+	private int[] valorMainList = { 7 };
 
 	public Componente(int largura, int altura) {
 
 		setPreferredSize(new Dimension(largura, altura));
 
-		setBackground(SystemColor.textHighlight);
+		setBackground(new Color(42, 65, 27));
+
 		setLayout(null);
+
+		iconBaixo = new ImageIcon(getClass().getResource("/BA.png"));
+		iconCima = new ImageIcon(getClass().getResource("/up.png"));
+		iconDireita = new ImageIcon(getClass().getResource("/DE.png"));
+		iconEsquerda = new ImageIcon(getClass().getResource("/LE.png"));
 
 		lblComandos = new JLabel("COMANDOS");
 		lblComandos.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblComandos.setForeground(SystemColor.text);
-		lblComandos.setBounds(28, 468, 119, 22);
+		lblComandos.setForeground(new Color(239, 213, 103));
+		lblComandos.setBounds(785, 40, 119, 22);
 		add(lblComandos);
 
 		menu = new JButton("");
@@ -52,94 +63,140 @@ public class Componente extends JPanel {
 		btnRestart.setContentAreaFilled(false);
 		add(btnRestart);
 
-
 		painelFase = new JPanel();
 		painelFase.setBackground(Color.BLACK);
-		painelFase.setBounds(30, 110, 448, 352);
-		painelFase .setOpaque(false);
+		painelFase.setBounds(30, 110, 896, 1040);
+		painelFase.setOpaque(false);
 		add(painelFase);
 
 		painelArea = new JPanel();
 		painelArea.setBackground(new Color(102, 205, 170));
-		painelArea .setOpaque(false);
-		painelArea.setBounds(509, 144, 167, 455);
-		
-		
-		
+		painelArea.setOpaque(false);
+		painelArea.setBounds(28, 501, 760, 88);
+
 		fundocomando = new JPanel();
 		fundocomando.setOpaque(false);
-		fundocomando.setBounds(509, 105, 167, 300);
-			
+		fundocomando.setBounds(22, 515, 744, 88);
+
 		labelMain = new JLabel("");
 		labelMain.setIcon(new ImageIcon(getClass().getResource("/main.png")));
-		labelMain.setBounds(0, 0, 205, 345);
+		labelMain.setBounds(0, 0, 744, 325);
 		fundocomando.add(labelMain);
-		
-		
+
 		add(painelArea);
 		add(fundocomando);
 
-
 		btnApagarSequencia = new JButton("APAGAR ULTIMO");
 		btnApagarSequencia.setIcon(new ImageIcon(getClass().getResource("/lixo.png")));
-		btnApagarSequencia.setBounds(510, 415, 166, 43);
+		btnApagarSequencia.setBounds(785, 215, 180, 43);
+		btnApagarSequencia.setForeground(Color.WHITE);
 		btnApagarSequencia.setContentAreaFilled(false);
 		add(btnApagarSequencia);
 
 		painelComandos = new JPanel();
 		painelComandos.setPreferredSize(new Dimension(largura, altura));
 		painelComandos.setLayout(null);
-		painelComandos.setBackground(new Color(46, 179, 87));
-		painelComandos.setBounds(28, 501, 646, 88);
+		painelComandos.setBackground(new Color(197, 219, 222));
+		painelComandos.setOpaque(false);
+		painelComandos.setBounds(785, 55, 200, 455);
 
 		btnLeft = new JButton("");
-		btnLeft.setBounds(10, 11, 67, 69);
+		btnLeft.setBounds(0, 11, 57, 69);
 		btnLeft.setIcon(new ImageIcon(getClass().getResource("/left.png")));
 		btnLeft.setContentAreaFilled(false);
 		painelComandos.add(btnLeft);
 
 		btnUp = new JButton("");
-		btnUp.setIcon(new ImageIcon(getClass().getResource("/up.png")));
-		btnUp.setBounds(82, 11, 67, 69);
+		btnUp.setIcon(iconCima);
+		btnUp.setBounds(62, 85, 57, 69);
 		btnUp.setContentAreaFilled(false);
 		painelComandos.add(btnUp);
 
 		btnRight = new JButton("");
 		btnRight.setIcon(new ImageIcon(getClass().getResource("/right.png")));
-		btnRight.setBounds(154, 11, 67, 69);
+		btnRight.setBounds(62, 11, 57, 69);
 		btnRight.setContentAreaFilled(false);
 		painelComandos.add(btnRight);
 
 		btn180 = new JButton("");
 		btn180.setIcon(new ImageIcon(getClass().getResource("/giro.png")));
-		btn180.setBounds(226, 11, 67, 69);
+		btn180.setBounds(124, 11, 57, 69);
 		btn180.setContentAreaFilled(false);
 		painelComandos.add(btn180);
-		
+
 		btnChutar = new JButton("");
-		btnChutar.setIcon(new ImageIcon(getClass().getResource("/chutar.png")));
-		btnChutar.setBounds(384, 11, 67, 69);
+		btnChutar.setIcon(new ImageIcon(getClass().getResource("/chutar1x.png")));
+		btnChutar.setBounds(0, 85, 57, 69);
 		btnChutar.setContentAreaFilled(false);
 		painelComandos.add(btnChutar);
 
 		btnPlay = new JButton("");
 		btnPlay.setIcon(new ImageIcon(getClass().getResource("/play.png")));
-		btnPlay.setBounds(462, 11, 62, 69);
+		btnPlay.setBounds(124, 85, 57, 69);
 		btnPlay.setContentAreaFilled(false);
 		painelComandos.add(btnPlay);
-		
-
-		btnRepetir = new JButton("");
-		btnRepetir.setIcon(new ImageIcon(getClass().getResource("/repetir.png")));
-		btnRepetir.setBounds(300, 11, 70, 69);
-		btnRepetir.setContentAreaFilled(false);
-		painelComandos.add(btnRepetir);
-
+//
 		add(painelComandos);
-		
+
+		repaint();
 
 	}
 
+	public void setarIconeCima() {
+		btnUp.setIcon(iconCima);
+	}
+
+	public void setarIconeBaixo() {
+		btnUp.setIcon(iconBaixo);
+	}
+
+	public void setarIconeDireita() {
+		btnUp.setIcon(iconDireita);
+	}
+
+	public void setarIconeEsquerda() {
+		btnUp.setIcon(iconEsquerda);
+	}
+
+	public void addComando(String direcao) {
+		if (painelArea.getComponents().length < 23) {
+			JLabel label = new JLabel();
+
+			label.setIcon(new ImageIcon(getClass().getResource("/" + direcao + ".png")));
+			label.setBounds(posXLabel[indice], posYLabel[indice], 30, 30);
+			painelArea.add(label);
+
+			indice++;
+			painelArea.repaint();
+
+		}
+
+	}
+
+	public boolean removerComando() {
+		int tamanho = painelArea.getComponents().length;
+
+		if (tamanho > 0) {
+
+			Component label = painelArea.getComponent(tamanho - 1);
+
+			painelArea.remove(label);
+
+			indice--;
+			painelArea.repaint();
+			
+			return true;
+		}
+		return false;
+	}
+
+	public int getIndice() {
+		return indice;
+	}
+
+	public void setIndice(int indice) {
+		this.indice = indice;
+	}
 
 	public JPanel getPainelFase() {
 		return painelFase;
@@ -195,11 +252,6 @@ public class Componente extends JPanel {
 
 	public int[] getValorMainList() {
 		return valorMainList;
-	}
-
-
-	public JButton getBtnRepetir() {
-		return btnRepetir;
 	}
 
 }

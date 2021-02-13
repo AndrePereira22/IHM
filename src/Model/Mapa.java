@@ -13,9 +13,9 @@ import java.util.StringTokenizer;
 import javax.imageio.ImageIO;
 
 public class Mapa {
-	private final int numeroColunas =14 ;
-	private final int numeroLinhas = 11;
-	private final int colunasTileSet = 15;
+	private final int numeroColunas =22 ;
+	private final int numeroLinhas = 14;
+	private final int colunasTileSet = 22;
 	private final int tileSize = 32;
 
 	private int camada[][];

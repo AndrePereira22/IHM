@@ -15,37 +15,51 @@ public class Trave {
 	private int largura, altura;
 	private ImageIcon referencia;
 	private boolean isVisivel;
-	
-	private int[] posX = { 430,8};
-	private int[] posY = { 161,162};
 
-	private static ArrayList<Point> pontos = new ArrayList<Point>();
+	public Trave() {
 
-	public Trave(int x, int y) {
-
-		this.x = x;
-		this.y = y;
+		this.x = 688;
+		this.y = 192;
 
 		referencia = new ImageIcon(getClass().getResource("/trave1.png"));
 
 		imagem = referencia.getImage();
-		
+
 		this.largura = imagem.getWidth(null);
 		this.altura = imagem.getHeight(null);
-		addPosicoes();
+
 		isVisivel = true;
 	}
-	
-	@SuppressWarnings("unused")
-	private void addPosicoes() {
 
-		for (int i = 0; i < posX.length; i++) {
-			pontos.add(new Point(posX[i], posY[i]));
+	public void posicaoDireita() {
 
+		this.x = 688;
+		this.y = 192;
+
+	}
+
+	public void posicaoEsquerda() {
+
+		this.x = 0;
+		this.y = 192;
+
+	}
+
+	public void mudarIcone(int n) {
+
+		if (n == 1) {
+			referencia = new ImageIcon(getClass().getResource("/trave1.png"));
+
+			imagem = referencia.getImage();
+		} else {
+			referencia = new ImageIcon(getClass().getResource("/trave2.png"));
+
+			imagem = referencia.getImage();
 		}
 
 	}
-	public Rectangle getBounds(){
+
+	public Rectangle getBounds() {
 		return new Rectangle(x, y, largura, altura);
 	}
 
@@ -65,7 +79,6 @@ public class Trave {
 		return isVisivel;
 	}
 
-
 	public int getLargura() {
 		return largura;
 	}
@@ -77,6 +90,5 @@ public class Trave {
 	public void setVisivel(boolean isVisivel) {
 		this.isVisivel = isVisivel;
 	}
-	
 
 }
