@@ -1,46 +1,34 @@
 package Model;
 
-import java.io.File;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import java.applet.Applet;
+import java.applet.AudioClip;
 
 public class Audio {
 
-	private Clip musica, chute, gol;
+	private AudioClip sndmusica, sndchute, sndgol, sndErro;
 
 	public Audio() {
-		try {
-			AudioInputStream audioMusica = AudioSystem.getAudioInputStream(new File("resource/musica.wav").getAbsoluteFile());
-			AudioInputStream audioChute = AudioSystem.getAudioInputStream(new File("resource/chute.wav").getAbsoluteFile());
-			AudioInputStream audioGol = AudioSystem.getAudioInputStream(new File("resource/gol.wav").getAbsoluteFile());
-
-			musica = AudioSystem.getClip();
-			musica.open(audioMusica);
-
-			chute = AudioSystem.getClip();
-			chute.open(audioChute);
-
-			gol = AudioSystem.getClip();
-			gol.open(audioGol);
-
-		} catch (Exception ex) {
-			System.out.println("Erro ao executar SOM!");
-			ex.printStackTrace();
-		}
+		sndmusica = Applet.newAudioClip(getClass().getResource("/musica.wav"));
+		sndchute = Applet.newAudioClip(getClass().getResource("/chute.wav"));
+		sndgol = Applet.newAudioClip(getClass().getResource("/gol.wav"));
+		sndErro = Applet.newAudioClip(getClass().getResource("/erro.wav"));
 
 	}
 
-	public Clip getMusica() {
-		return musica;
+	public AudioClip getSndmusica() {
+		return sndmusica;
 	}
 
-	public Clip getChute() {
-		return chute;
+	public AudioClip getSndchute() {
+		return sndchute;
 	}
 
-	public Clip getGol() {
-		return gol;
+	public AudioClip getSndgol() {
+		return sndgol;
+	}
+
+	public AudioClip getSndErro() {
+		return sndErro;
 	}
 
 }

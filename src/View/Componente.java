@@ -17,7 +17,7 @@ public class Componente extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel painelFase, painelArea, painelComandos, fundocomando, painelInfo;
-	private JLabel lblComandos,lblFase,lblJogador,lblSize;
+	private JLabel lblComandos, lblFase, lblJogador, lblSize;
 	private JLabel labelMain;
 	private JButton btnRestart, btnApagarSequencia, menu;
 	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay, btnChutar;
@@ -42,25 +42,24 @@ public class Componente extends JPanel {
 		iconDireita = new ImageIcon(getClass().getResource("/DE.png"));
 		iconEsquerda = new ImageIcon(getClass().getResource("/LE.png"));
 
-		lblJogador = new JLabel("JOGADOR: Glenda Koslowky");
+		lblJogador = new JLabel("JOGADOR:");
 		lblJogador.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblJogador.setForeground(new Color(239, 213, 103));
 		lblJogador.setBounds(485, 70, 319, 22);
 		add(lblJogador);
-		
+
 		lblSize = new JLabel("0 / 25");
 		lblSize.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblSize.setForeground(new Color(239, 213, 103));
-		lblSize.setBounds(875, 600, 319, 22);
+		lblSize.setBounds(885, 600, 319, 22);
 		add(lblSize);
-		
+
 		lblFase = new JLabel("FASE 1");
-		lblFase .setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblFase .setForeground(new Color(239, 213, 103));
+		lblFase.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblFase.setForeground(new Color(239, 213, 103));
 		lblFase.setBounds(360, 70, 119, 22);
-		add(lblFase );
-		
-		
+		add(lblFase);
+
 		lblComandos = new JLabel("COMANDOS");
 		lblComandos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblComandos.setForeground(new Color(239, 213, 103));
@@ -90,7 +89,8 @@ public class Componente extends JPanel {
 		painelArea = new JPanel();
 		painelArea.setBackground(new Color(102, 205, 170));
 		painelArea.setOpaque(false);
-		painelArea.setBounds(24, 541, 860, 88);
+		painelArea.setLayout(null);
+		painelArea.setBounds(34, 581, 890, 58);
 
 		fundocomando = new JPanel();
 		fundocomando.setOpaque(false);
@@ -190,7 +190,7 @@ public class Componente extends JPanel {
 			JLabel label = new JLabel();
 
 			label.setIcon(new ImageIcon(getClass().getResource("/" + direcao + ".png")));
-			label.setBounds(posXLabel[indice], 54, 30, 30);
+			label.setBounds(posXLabel[indice], 14, 30, 30);
 			painelArea.add(label);
 
 			indice++;
@@ -215,6 +215,14 @@ public class Componente extends JPanel {
 			return true;
 		}
 		return false;
+	}
+
+	public void setarPainelFase() {
+
+		painelFase = new JPanel();
+		painelFase.setBackground(Color.BLACK);
+		painelFase.setBounds(0, 112, 896, 1040);
+		painelFase.setOpaque(false);
 	}
 
 	public int getIndice() {
@@ -281,4 +289,17 @@ public class Componente extends JPanel {
 		return valorMainList;
 	}
 
+	public JLabel getLblFase() {
+		return lblFase;
+	}
+
+	public JLabel getLblJogador() {
+		return lblJogador;
+	}
+
+	public void mudarSize(int numero) {
+		lblSize.setText(numero + " / 25");
+
+		lblSize.repaint();
+	}
 }

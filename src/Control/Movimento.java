@@ -23,7 +23,8 @@ public class Movimento {
 	private Bola bola;
 	int i = 0;
 	private Fase fase;
-	private boolean foraAlvo=false;
+	private Componente componentes;
+
 
 	public Movimento(Sprite player1, Fase fase, Audio audio, Componente componentes) {
 
@@ -34,6 +35,7 @@ public class Movimento {
 		this.cima = new Frente(personagem,  fase);
 		this.baixo = new Baixo(personagem);
 		this.fase=fase;
+		this.componentes=componentes;
 
 	}
 
@@ -114,7 +116,7 @@ public class Movimento {
 
 					if (personagem.colisaoAlvo(fase.getAlvo(), 0, 0)) {
 
-						audio.getChute().start();
+						audio.getSndchute().play();
 
 						try {
 
@@ -162,9 +164,11 @@ public class Movimento {
 							e.printStackTrace();
 						}
 
-					}else {
-						foraAlvo=true;
-					}
+				}else {
+				
+					reiniciar();
+		
+				}
 
 				}
 				Thread.sleep(240);
@@ -179,7 +183,21 @@ public class Movimento {
 		}
 
 	}
+	public void reiniciar() {
+		Bola.getBolas().clear();
+		componentes.setarIconeCima();
+		componentes.getPainelArea().removeAll();
+		componentes.setIndice(0);
+		posicionarA();
+		getLista().clear();
+	}
 
+	public void posicionarA() {
+		personagem.setX(128);
+		personagem.setY(320);
+		personagem.aparencia = 1;
+		Controle.aparencia = 1;
+	}
 
 	public void addMovimento(String direcao) {
 
@@ -189,14 +207,6 @@ public class Movimento {
 
 	public ArrayList<MainList> getLista() {
 		return list;
-	}
-
-	public boolean isForaAlvo() {
-		return foraAlvo;
-	}
-
-	public void setForaAlvo(boolean foraAlvo) {
-		this.foraAlvo = foraAlvo;
 	}
 
 }

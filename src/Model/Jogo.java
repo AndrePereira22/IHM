@@ -24,15 +24,15 @@ public abstract class Jogo extends JPanel implements Runnable {
 	@SuppressWarnings("unused")
 	private Double averageFPS;
 
-	public Jogo(String img) {
+	public Jogo(String img,Mapa caminho, Mapa colisao) {
 		super();
 		setPreferredSize(new Dimension(LARGURA,ALTURA));
 		setFocusable(true);
 		requestFocus();
-		Load(img);
+		Load(img,caminho,colisao);
 	}
 	
-	public abstract void Load(String img);
+	public abstract void Load(String img,Mapa caminho,Mapa colisao);
 	
 	 public void terminate() {
 		 
@@ -48,7 +48,7 @@ public abstract class Jogo extends JPanel implements Runnable {
 		}
 
 	// Funçoes
-	public void run() {
+	public void run() throws java.lang.NullPointerException {
 		running = true;
 
 		image = new BufferedImage(LARGURA,ALTURA, BufferedImage.TYPE_INT_RGB);
@@ -66,21 +66,26 @@ public abstract class Jogo extends JPanel implements Runnable {
 
 		// Looping do Jogo
 		while (running) {
-
 			startTime = System.nanoTime();
-
-			Update();
-			Render();
-			gameDraw();
-
-			URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
-			waitTime = tragetTime - URDTimeMillis;
-
 			try {
-				Thread.sleep(waitTime);
-			} catch (Exception e) {
-			}
+			
 
+				Update();
+				Render();
+				gameDraw();
+
+				URDTimeMillis = (System.nanoTime() - startTime) / 1000000;
+				waitTime = tragetTime - URDTimeMillis;
+				Thread.sleep(waitTime);
+				
+			} catch (java.lang.NullPointerException e ) {
+				
+			} catch (java.lang.IllegalArgumentException v ) {
+				
+			}  catch (InterruptedException e) {
+		
+			}
+			
 			totalTime += System.nanoTime() - startTime;
 			frameCount++;
 

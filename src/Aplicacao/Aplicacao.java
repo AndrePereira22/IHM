@@ -1,15 +1,14 @@
-package Main;
+package Aplicacao;
 
 import Control.Controle;
 import View.Janela;
 
-public class Main {
+public class Aplicacao {
 
 	public static void main(String[] args) {
 
 		Janela janela = new Janela(800, 590);
-		Controle controle = new Controle(janela);
-		controle.run();
+		new Controle(janela).run();
 
 	}
 
