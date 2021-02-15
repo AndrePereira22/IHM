@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.Dimension;
-import java.awt.SystemColor;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,53 +14,60 @@ public class Creditos extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JButton jogar, ajuda, sair;
+	private JButton btnVoltar;
 
-	private JLabel fundo;
 
 	public Creditos(int largura, int altura) {
 
 		setPreferredSize(new Dimension(largura, altura));
 		setLayout(null);
-		
 
-		jogar = new JButton("JOGAR");
-		jogar.setContentAreaFilled(false);
-		jogar.setBounds(200, 448, 120, 63);
-		jogar.setIcon(new ImageIcon(getClass().getResource("/jogar.png")));
-		add(jogar);
-
-		ajuda = new JButton("AJUDA");
-		ajuda.setContentAreaFilled(false);
-		ajuda.setIcon(new ImageIcon(getClass().getResource("/ajuda.png")));
-		ajuda.setBounds(350, 448, 120, 63);
-		add(ajuda);
-
-		sair = new JButton("SAIR");
-		sair.setContentAreaFilled(false);
-		sair.setIcon(new ImageIcon(getClass().getResource("/sair.png")));
-		sair.setBounds(500, 448, 120, 63);
-		add(sair);
+		btnVoltar = new JButton("");
+		btnVoltar.setIcon(new ImageIcon(getClass().getResource("/voltar.png")));
+		btnVoltar.setRolloverIcon(new ImageIcon(getClass().getResource("/voltarRoller.png")));
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setBorder(null);
+		btnVoltar.setBounds(86, 400,62, 69);
+		
+		add(btnVoltar);
+		
+		JLabel facul = new JLabel("UNIVERSIDADE FEDERAL RUAL DE PERNAMBUCO- UAST");
+		facul.setBounds(201, 220, 418, 29);
+		add(facul);
+		
+		JLabel lblNewLabel = new JLabel("DISCIPLINA: INTERA\u00C7\u00C3O HOME MAQUINA");
+		lblNewLabel.setBounds(201, 250, 275, 14);
+		add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("ALUNO: ANDR\u00C9 PEREIRA DOS SANTOS");
+		lblNewLabel_1.setBounds(201, 270, 239, 14);
+		add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("PROFESSOR: RICHARLISON ALVES DEMERY");
+		lblNewLabel_2.setBounds(201, 290, 275, 14);
+		add(lblNewLabel_2);
+	
 		
 		
-		fundo = new JLabel(new ImageIcon(getClass().getResource("/img.gif")));
-		fundo.setBounds(0, 0, 800, 600);
-		add(fundo);
+		JLabel fundoBaixo = new JLabel("cREDITOS");
+		fundoBaixo.setIcon(new ImageIcon(getClass().getResource("/cred.png")));
+		fundoBaixo.setBounds(113, 150, 572, 221);
 		
-		setVisible(true);
+		add(fundoBaixo);
+		
+		JLabel lblFundo = new JLabel("");
+		lblFundo.setIcon(new ImageIcon(getClass().getResource("/a.png")));
+		lblFundo.setBounds(0, 0, 792, 609);
+		add(lblFundo);
+		
+		setVisible(false);
 
 	}
 
-	public JButton getJogar() {
-		return jogar;
+
+	public JButton getBtnVoltar() {
+		return btnVoltar;
 	}
 
-	public JButton getAjuda() {
-		return ajuda;
-	}
-
-	public JButton getSair() {
-		return sair;
-	}
 
 }

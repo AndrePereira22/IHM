@@ -13,54 +13,46 @@ public class Ajuda extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private JButton jogar, ajuda, sair;
 
+
+	private JButton btnAvancar, btnVoltar;
 	private JLabel fundo;
 
 	public Ajuda(int largura, int altura) {
 
 		setPreferredSize(new Dimension(largura, altura));
 		setLayout(null);
-		
 
-		jogar = new JButton("JOGAR");
-		jogar.setContentAreaFilled(false);
-		jogar.setBounds(200, 448, 120, 63);
-		jogar.setIcon(new ImageIcon(getClass().getResource("/jogar.png")));
-		add(jogar);
+		btnAvancar = new JButton("");
+		btnAvancar.setIcon(new ImageIcon(getClass().getResource("/avancar.png")));
+		btnAvancar.setRolloverIcon(new ImageIcon(getClass().getResource("/avancarRoller.png")));
+		btnAvancar.setContentAreaFilled(false);
+		btnAvancar.setBorder(null);
+		btnAvancar.setBounds(600, 400, 62, 69);
+		add(btnAvancar);
 
-		ajuda = new JButton("AJUDA");
-		ajuda.setContentAreaFilled(false);
-		ajuda.setIcon(new ImageIcon(getClass().getResource("/ajuda.png")));
-		ajuda.setBounds(350, 448, 120, 63);
-		add(ajuda);
+		btnVoltar = new JButton("");
+		btnVoltar.setIcon(new ImageIcon(getClass().getResource("/voltar.png")));
+		btnVoltar.setRolloverIcon(new ImageIcon(getClass().getResource("/voltarRoller.png")));
+		btnVoltar.setContentAreaFilled(false);
+		btnVoltar.setBorder(null);
+		btnVoltar.setBounds(140, 400, 62, 69);
+		add(btnVoltar);
 
-		sair = new JButton("SAIR");
-		sair.setContentAreaFilled(false);
-		sair.setIcon(new ImageIcon(getClass().getResource("/sair.png")));
-		sair.setBounds(500, 448, 120, 63);
-		add(sair);
-		
-		
-		fundo = new JLabel(new ImageIcon(getClass().getResource("/img.gif")));
+		fundo = new JLabel(new ImageIcon(getClass().getResource("/help.png")));
 		fundo.setBounds(0, 0, 800, 600);
 		add(fundo);
-		
-		setVisible(true);
+
+		setVisible(false);
 
 	}
 
-	public JButton getJogar() {
-		return jogar;
+	public JButton getBtnAvancar() {
+		return btnAvancar;
 	}
 
-	public JButton getAjuda() {
-		return ajuda;
-	}
-
-	public JButton getSair() {
-		return sair;
+	public JButton getBtnVoltar() {
+		return btnVoltar;
 	}
 
 }

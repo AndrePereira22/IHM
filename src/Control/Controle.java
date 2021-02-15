@@ -11,7 +11,10 @@ import Model.Audio;
 import Model.Bola;
 import Model.Sprite;
 import Model.Trave;
+import View.Ajuda;
+import View.AjudaFase;
 import View.Componente;
+import View.Creditos;
 import View.Entrada;
 import View.Fase;
 import View.Janela;
@@ -29,6 +32,9 @@ public class Controle implements Runnable, ActionListener {
 	private Audio audio;
 	private Menu menu;
 	private Entrada entrada;
+	private Creditos creditos;
+	private Ajuda ajuda;
+	private AjudaFase ajudaFase;
 	private Stage stage;
 	private Sprite personagem;
 	private Movimento movimento;
@@ -45,6 +51,9 @@ public class Controle implements Runnable, ActionListener {
 		this.audio = new Audio();
 		this.opcao = janela.getOpcao();
 		this.entrada = janela.getEntrada();
+		this.creditos = janela.getCreditos();
+		this.ajuda = janela.getAjuda();
+		this.ajudaFase = janela.getAjudaFase();
 		this.stage = janela.getStage();
 		this.fora = new PraFora(janela, true);
 		audio.getMusica().loop(100);
@@ -58,6 +67,7 @@ public class Controle implements Runnable, ActionListener {
 		menu.getJogar().addActionListener(this);
 		menu.getSair().addActionListener(this);
 		menu.getAjuda().addActionListener(this);
+		menu.getCreditos().addActionListener(this);
 
 		opcao.getBtnIniciar().addActionListener(this);
 		opcao.getBtnBrasil().addActionListener(this);
@@ -79,8 +89,11 @@ public class Controle implements Runnable, ActionListener {
 		stage.getBtnFase5().addActionListener(this);
 		stage.getBtnFase6().addActionListener(this);
 		opcao.getBtnVoltar().addActionListener(this);
-
+		ajuda.getBtnVoltar().addActionListener(this);
+		ajuda.getBtnAvancar().addActionListener(this);
+		ajudaFase.getBtnVoltar().addActionListener(this);
 		stage.getBtnVoltar().addActionListener(this);
+		creditos.getBtnVoltar().addActionListener(this);
 
 		fora.getBtnOk().addActionListener(this);
 
@@ -91,6 +104,18 @@ public class Controle implements Runnable, ActionListener {
 		if (e.getSource() == fora.getBtnOk()) {
 			fora.setVisible(false);
 			componentes.requestFocus();
+
+		}
+		if (e.getSource() == ajuda.getBtnVoltar()) {
+			MudarTela(menu, ajuda);
+
+		}
+		if (e.getSource() == ajuda.getBtnAvancar()) {
+			MudarTela(ajudaFase, ajuda);
+
+		}
+		if (e.getSource() == ajudaFase.getBtnVoltar()) {
+			MudarTela(ajuda, ajudaFase);
 
 		}
 
@@ -107,10 +132,21 @@ public class Controle implements Runnable, ActionListener {
 			MudarTela(opcao, stage);
 
 		}
+		if (e.getSource() == creditos.getBtnVoltar()) {
+			MudarTela(menu, creditos);
+
+		}
 		if (e.getSource() == menu.getJogar()) {
 			MudarTela(entrada, menu);
 
 		}
+		if (e.getSource() == menu.getCreditos()) {
+			MudarTela(creditos, menu);
+		}
+		if (e.getSource() == menu.getAjuda()) {
+			MudarTela(ajuda, menu);
+		}
+
 		if (e.getSource() == menu.getSair()) {
 			System.exit(0);
 
@@ -161,34 +197,40 @@ public class Controle implements Runnable, ActionListener {
 		}
 
 		if (e.getSource() == componentes.getBtnRight()) {
-
-			movimento.addMovimento("right");
-			mudarSeta("right");
+			if (movimento.getLista().size() < 25) {
+				movimento.addMovimento("right");
+				mudarSeta("right");
+			}
 
 		}
 		if (e.getSource() == componentes.getBtnLeft()) {
-
-			movimento.addMovimento("left");
-			mudarSeta("left");
+			if (movimento.getLista().size() < 25) {
+				movimento.addMovimento("left");
+				mudarSeta("left");
+			}
 
 		}
 
 		if (e.getSource() == componentes.getBtnUp()) {
+			if (movimento.getLista().size() < 25) {
+				movimento.addMovimento("up");
+				mudarSeta("up");
+			}
 
-			movimento.addMovimento("up");
-			mudarSeta("up");
 		}
 		if (e.getSource() == componentes.getBtn180()) {
 
-			movimento.addMovimento("giro");
-
-			mudarSeta("180");
+			if (movimento.getLista().size() < 25) {
+				movimento.addMovimento("giro");
+				mudarSeta("180");
+			}
 
 		}
 		if (e.getSource() == componentes.getBtnChutar()) {
-
-			movimento.addMovimento("chutar");
-			componentes.addComando("chute");
+			if (movimento.getLista().size() < 25) {
+				movimento.addMovimento("chutar");
+				componentes.addComando("chute");
+			}
 
 		}
 
@@ -198,8 +240,12 @@ public class Controle implements Runnable, ActionListener {
 				JOptionPane.showMessageDialog(null, "Voce nao adicionou comandos");
 			} else {
 				if (movimento.getLista().get(movimento.getLista().size() - 1).getDirecao().equals("chutar")) {
+					try {
+						movimento.Play();
+					} catch (java.util.ConcurrentModificationException e2) {
+						System.out.println("erro de concorrencia");
+					}
 
-					movimento.Play();
 				} else {
 					JOptionPane.showMessageDialog(null, "Adiciono o comando de chutar no final.");
 				}
@@ -249,104 +295,21 @@ public class Controle implements Runnable, ActionListener {
 		}
 
 		if (fase != null) {
-			
+
 			if (personagem.colisao(Fase.getRetangulosColisao(), 0, 0)) {
-				personagem.setX(personagem.getPonto().x);
-				personagem.setY(personagem.getPonto().y);
-				personagem.aparencia = 1;
+
+				posicionarA();
 
 			}
 			if (movimento != null) {
 				if (movimento.isForaAlvo()) {
 					System.out.println("vc não ésta no alvo");
 					reiniciar();
-					movimento.getLista().clear();
+					posicionarA();
 					movimento.setForaAlvo(false);
 				}
 			}
 		}
-	}
-
-	private void mudarSeta(String direcao) {
-
-		if (direcao.equals("180")) {
-
-			if (aparencia == 7) {
-				aparencia = 2;
-				componentes.setarIconeEsquerda();
-
-			} else if (aparencia == 2) {
-				aparencia = 7;
-				componentes.setarIconeDireita();
-
-			} else if (aparencia == 1) {
-				aparencia = 0;
-				componentes.setarIconeBaixo();
-
-			} else if (aparencia == 0) {
-				aparencia = 1;
-				componentes.setarIconeCima();
-			}
-
-			componentes.repaint();
-			componentes.addComando("180");
-
-		} else if (direcao.equals("right")) {
-
-			if (aparencia == 0) {
-				aparencia = 2;
-				componentes.setarIconeEsquerda();
-
-			} else if (aparencia == 2) {
-				aparencia = 1;
-				componentes.setarIconeCima();
-
-			} else if (aparencia == 1) {
-				aparencia = 7;
-				componentes.setarIconeDireita();
-
-			} else if (aparencia == 7) {
-				aparencia = 0;
-				componentes.setarIconeBaixo();
-			}
-			componentes.addComando("direita");
-
-		} else if (direcao.equals("left")) {
-
-			if (aparencia == 0) {
-				aparencia = 7;
-				componentes.setarIconeDireita();
-
-			} else if (aparencia == 7) {
-				aparencia = 1;
-				componentes.setarIconeCima();
-
-			} else if (aparencia == 1) {
-				aparencia = 2;
-				componentes.setarIconeEsquerda();
-
-			} else if (aparencia == 2) {
-				aparencia = 0;
-				componentes.setarIconeBaixo();
-			}
-			componentes.addComando("esquerda");
-
-		} else if (direcao.equals("up")) {
-
-			if (aparencia == 0) {
-				componentes.addComando("baixo");
-			} else if (aparencia == 7) {
-
-				componentes.addComando("Di");
-			} else if (aparencia == 1) {
-
-				componentes.addComando("cima");
-			} else if (aparencia == 2) {
-				componentes.addComando("Es");
-			}
-
-		}
-
 	}
 
 	public void MudarTela(JPanel aparece, JPanel some) {
@@ -361,12 +324,13 @@ public class Controle implements Runnable, ActionListener {
 
 			if (brasil) {
 				this.fase = new Fase("sprite1.png");
+
 			} else {
 				this.fase = new Fase("sprite2.png");
 			}
 		}
 
-		componentes.getPainelFase().setBounds(10, 60, 750, 512);
+		componentes.getPainelFase().setBounds(20, 95, 750, 512);
 
 		if (componentes.getPainelFase().getComponents().length == 0) {
 
@@ -374,7 +338,8 @@ public class Controle implements Runnable, ActionListener {
 			this.personagem = fase.getPersonagem();
 			this.movimento = new Movimento(personagem, fase, audio, componentes, fora);
 		}
-
+		componentes.getPainelFase().setVisible(false);
+		componentes.getPainelFase().setVisible(true);
 		reiniciar();
 		janela.TamanhoFase();
 		audio.getMusica().stop();
@@ -384,9 +349,10 @@ public class Controle implements Runnable, ActionListener {
 		case 1: {
 			fase.setarColisao(fase.getColisao1());
 			fase.setarMapa(fase.getCaminho1());
-			fase.getTrave().posicaoDireita();
 			controlador = 1;
 			fase.getTrave().mudarIcone(1);
+			posicionarA();
+			fase.getAlvo().mudarA();
 
 			break;
 		}
@@ -394,45 +360,52 @@ public class Controle implements Runnable, ActionListener {
 
 			fase.setarColisao(fase.getColisao2());
 			fase.setarMapa(fase.getCaminho2());
-			fase.getTrave().posicaoDireita();
 			controlador = 2;
 			fase.getTrave().mudarIcone(1);
+			posicionarA();
+			fase.getAlvo().mudarA();
 			break;
 		}
 		case 3: {
 
 			fase.setarColisao(fase.getColisao3());
 			fase.setarMapa(fase.getCaminho3());
-			fase.getTrave().posicaoDireita();
 			controlador = 3;
 			fase.getTrave().mudarIcone(1);
+			posicionarA();
+			fase.getAlvo().mudarA();
 			break;
 		}
 		case 4: {
 
 			fase.setarColisao(fase.getColisao4());
 			fase.setarMapa(fase.getCaminho4());
-			fase.getTrave().posicaoEsquerda();
 			controlador = 4;
 			fase.getTrave().mudarIcone(2);
+			posicionarA();
+			fase.getAlvo().mudarB();
+
 			break;
 		}
 		case 5: {
 
 			fase.setarColisao(fase.getColisao5());
 			fase.setarMapa(fase.getCaminho5());
-			fase.getTrave().posicaoEsquerda();
 			controlador = 5;
 			fase.getTrave().mudarIcone(2);
+			posicionarA();
+			fase.getAlvo().mudarB();
+
 			break;
 		}
 		case 6: {
 
 			fase.setarColisao(fase.getColisao6());
 			fase.setarMapa(fase.getCaminho6());
-			fase.getTrave().posicaoEsquerda();
 			controlador = 5;
 			fase.getTrave().mudarIcone(2);
+			posicionarA();
+			fase.getAlvo().mudarB();
 			break;
 		}
 		}
@@ -516,46 +489,125 @@ public class Controle implements Runnable, ActionListener {
 	}
 
 	public void reiniciar() {
-		personagem.setX(personagem.getPonto().x);
-		personagem.setY(personagem.getPonto().y);
 		Bola.getBolas().clear();
-
 		componentes.setarIconeCima();
-		aparencia = 1;
 		componentes.getPainelArea().removeAll();
-		personagem.aparencia = 1;
 		componentes.setIndice(0);
 
+		posicionarA();
+
+		movimento.getLista().clear();
 	}
 
 	public void menu() {
 		componentes.getPainelFase().setBounds(1000, 0, 708, 448);
-		movimento.getLista().clear();
 		componentes.getPainelArea().removeAll();
 		janela.TamanhoMenu();
+	}
+
+	private void mudarSeta(String direcao) {
+
+		if (direcao.equals("180")) {
+
+			if (aparencia == 8) {
+				aparencia = 2;
+				componentes.setarIconeEsquerda();
+
+			} else if (aparencia == 2) {
+				aparencia = 8;
+				componentes.setarIconeDireita();
+
+			} else if (aparencia == 1) {
+				aparencia = 0;
+				componentes.setarIconeBaixo();
+				System.out.println("mudou a seta");
+
+			} else if (aparencia == 0) {
+				aparencia = 1;
+				componentes.setarIconeCima();
+			}
+			componentes.addComando("180");
+			componentes.repaint();
+
+		} else if (direcao.equals("right")) {
+
+			if (aparencia == 0) {
+				aparencia = 2;
+				componentes.setarIconeEsquerda();
+
+			} else if (aparencia == 2) {
+				aparencia = 1;
+				componentes.setarIconeCima();
+
+			} else if (aparencia == 1) {
+				aparencia = 8;
+				componentes.setarIconeDireita();
+
+			} else if (aparencia == 8) {
+				aparencia = 0;
+				componentes.setarIconeBaixo();
+			}
+			componentes.addComando("direita");
+
+		} else if (direcao.equals("left")) {
+
+			if (aparencia == 0) {
+				aparencia = 8;
+				componentes.setarIconeDireita();
+
+			} else if (aparencia == 8) {
+				aparencia = 1;
+				componentes.setarIconeCima();
+
+			} else if (aparencia == 1) {
+				aparencia = 2;
+				componentes.setarIconeEsquerda();
+
+			} else if (aparencia == 2) {
+				aparencia = 0;
+				componentes.setarIconeBaixo();
+			}
+			componentes.addComando("esquerda");
+
+		} else if (direcao.equals("up")) {
+
+			if (aparencia == 0) {
+				componentes.addComando("baixo");
+			} else if (aparencia == 8) {
+
+				componentes.addComando("Di");
+			} else if (aparencia == 1) {
+
+				componentes.addComando("cima");
+			} else if (aparencia == 2) {
+				componentes.addComando("Es");
+			}
+
+		}
+
 	}
 
 	private void apagarComando() {
 
 		int tamanho = movimento.getLista().size() - 1;
 
-		if (movimento.getLista().get(tamanho).getDirecao().equals("180")) {
+		if (movimento.getLista().get(tamanho).getDirecao().equals("giro")) {
 
-			if (aparencia == 7) {
-				aparencia = 2;
-				componentes.setarIconeEsquerda();
-
-			} else if (aparencia == 2) {
-				aparencia = 7;
-				componentes.setarIconeDireita();
+			if (aparencia == 0) {
+				aparencia = 1;
+				componentes.setarIconeCima();
 
 			} else if (aparencia == 1) {
 				aparencia = 0;
 				componentes.setarIconeBaixo();
 
-			} else if (aparencia == 0) {
-				aparencia = 1;
-				componentes.setarIconeCima();
+			} else if (aparencia == 2) {
+				aparencia = 8;
+				componentes.setarIconeDireita();
+
+			} else if (aparencia == 8) {
+				aparencia = 2;
+				componentes.setarIconeEsquerda();
 			}
 
 			componentes.repaint();
@@ -563,10 +615,10 @@ public class Controle implements Runnable, ActionListener {
 		} else if (movimento.getLista().get(tamanho).getDirecao().equals("right")) {
 
 			if (aparencia == 0) {
-				aparencia = 7;
+				aparencia = 8;
 				componentes.setarIconeDireita();
 
-			} else if (aparencia == 7) {
+			} else if (aparencia == 8) {
 				aparencia = 1;
 				componentes.setarIconeCima();
 
@@ -590,10 +642,10 @@ public class Controle implements Runnable, ActionListener {
 				componentes.setarIconeCima();
 
 			} else if (aparencia == 1) {
-				aparencia = 7;
+				aparencia = 8;
 				componentes.setarIconeDireita();
 
-			} else if (aparencia == 7) {
+			} else if (aparencia == 8) {
 				aparencia = 0;
 				componentes.setarIconeBaixo();
 			}
@@ -601,4 +653,12 @@ public class Controle implements Runnable, ActionListener {
 		}
 		movimento.getLista().remove(tamanho);
 	}
+
+	public void posicionarA() {
+		personagem.setX(128);
+		personagem.setY(320);
+		personagem.aparencia = 1;
+		aparencia = 1;
+	}
+
 }

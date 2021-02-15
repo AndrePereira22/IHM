@@ -16,15 +16,14 @@ public class Componente extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel painelFase, painelArea, painelComandos, fundocomando;
-	private JLabel lblComandos;
+	private JPanel painelFase, painelArea, painelComandos, fundocomando, painelInfo;
+	private JLabel lblComandos,lblFase,lblJogador,lblSize;
 	private JLabel labelMain;
 	private JButton btnRestart, btnApagarSequencia, menu;
 	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay, btnChutar;
 	private int[] posXLabel = { 20, 52, 84, 118, 150, 182, 214, 246, 278, 310, 342, 374, 406, 438, 470, 502, 534, 566,
-			598, 630, 662, 692, 722 };
-	private int[] posYLabel = { 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50,
-			181 };
+			598, 630, 662, 692, 722, 754, 786, 818 };
+
 	private int indice = 0;
 	private ImageIcon iconBaixo, iconCima, iconDireita, iconEsquerda;
 
@@ -43,10 +42,29 @@ public class Componente extends JPanel {
 		iconDireita = new ImageIcon(getClass().getResource("/DE.png"));
 		iconEsquerda = new ImageIcon(getClass().getResource("/LE.png"));
 
+		lblJogador = new JLabel("JOGADOR: Glenda Koslowky");
+		lblJogador.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblJogador.setForeground(new Color(239, 213, 103));
+		lblJogador.setBounds(485, 70, 319, 22);
+		add(lblJogador);
+		
+		lblSize = new JLabel("0 / 25");
+		lblSize.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblSize.setForeground(new Color(239, 213, 103));
+		lblSize.setBounds(875, 600, 319, 22);
+		add(lblSize);
+		
+		lblFase = new JLabel("FASE 1");
+		lblFase .setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblFase .setForeground(new Color(239, 213, 103));
+		lblFase.setBounds(360, 70, 119, 22);
+		add(lblFase );
+		
+		
 		lblComandos = new JLabel("COMANDOS");
 		lblComandos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblComandos.setForeground(new Color(239, 213, 103));
-		lblComandos.setBounds(785, 40, 119, 22);
+		lblComandos.setBounds(785, 70, 119, 22);
 		add(lblComandos);
 
 		menu = new JButton("");
@@ -65,22 +83,22 @@ public class Componente extends JPanel {
 
 		painelFase = new JPanel();
 		painelFase.setBackground(Color.BLACK);
-		painelFase.setBounds(30, 110, 896, 1040);
+		painelFase.setBounds(0, 112, 896, 1040);
 		painelFase.setOpaque(false);
 		add(painelFase);
 
 		painelArea = new JPanel();
 		painelArea.setBackground(new Color(102, 205, 170));
 		painelArea.setOpaque(false);
-		painelArea.setBounds(28, 501, 760, 88);
+		painelArea.setBounds(24, 541, 860, 88);
 
 		fundocomando = new JPanel();
 		fundocomando.setOpaque(false);
-		fundocomando.setBounds(22, 515, 744, 88);
+		fundocomando.setBounds(22, 555, 845, 88);
 
 		labelMain = new JLabel("");
 		labelMain.setIcon(new ImageIcon(getClass().getResource("/main.png")));
-		labelMain.setBounds(0, 0, 744, 325);
+		labelMain.setBounds(-10, 0, 845, 325);
 		fundocomando.add(labelMain);
 
 		add(painelArea);
@@ -88,17 +106,26 @@ public class Componente extends JPanel {
 
 		btnApagarSequencia = new JButton("APAGAR ULTIMO");
 		btnApagarSequencia.setIcon(new ImageIcon(getClass().getResource("/lixo.png")));
-		btnApagarSequencia.setBounds(785, 215, 180, 43);
+		btnApagarSequencia.setBounds(775, 265, 180, 43);
 		btnApagarSequencia.setForeground(Color.WHITE);
 		btnApagarSequencia.setContentAreaFilled(false);
 		add(btnApagarSequencia);
+
+		painelInfo = new JPanel();
+		painelInfo.setPreferredSize(new Dimension(largura, altura));
+		painelInfo.setLayout(null);
+		painelInfo.setBackground(Color.BLACK);
+		painelInfo.setBackground(new Color(197, 219, 222));
+		// painelInfo.setOpaque(false);
+		painelInfo.setBounds(785, 330, 180, 180);
+		add(painelInfo);
 
 		painelComandos = new JPanel();
 		painelComandos.setPreferredSize(new Dimension(largura, altura));
 		painelComandos.setLayout(null);
 		painelComandos.setBackground(new Color(197, 219, 222));
 		painelComandos.setOpaque(false);
-		painelComandos.setBounds(785, 55, 200, 455);
+		painelComandos.setBounds(775, 90, 200, 455);
 
 		btnLeft = new JButton("");
 		btnLeft.setBounds(0, 11, 57, 69);
@@ -135,7 +162,7 @@ public class Componente extends JPanel {
 		btnPlay.setBounds(124, 85, 57, 69);
 		btnPlay.setContentAreaFilled(false);
 		painelComandos.add(btnPlay);
-//
+
 		add(painelComandos);
 
 		repaint();
@@ -159,11 +186,11 @@ public class Componente extends JPanel {
 	}
 
 	public void addComando(String direcao) {
-		if (painelArea.getComponents().length < 23) {
+		if (painelArea.getComponents().length < 25) {
 			JLabel label = new JLabel();
 
 			label.setIcon(new ImageIcon(getClass().getResource("/" + direcao + ".png")));
-			label.setBounds(posXLabel[indice], posYLabel[indice], 30, 30);
+			label.setBounds(posXLabel[indice], 54, 30, 30);
 			painelArea.add(label);
 
 			indice++;
@@ -184,7 +211,7 @@ public class Componente extends JPanel {
 
 			indice--;
 			painelArea.repaint();
-			
+
 			return true;
 		}
 		return false;

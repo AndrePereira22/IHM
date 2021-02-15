@@ -3,7 +3,6 @@ package View;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.SystemColor;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,6 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Opcao extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtJogador, txtIdade;
 	private JLabel  lblIdade, fundo, lblJogador,fundoBaixo;
 	private JButton btnAvancar, btnBrasil, btnPortugal,btnVoltar;

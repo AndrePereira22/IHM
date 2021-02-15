@@ -2,9 +2,7 @@
 package Model;
 
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -31,19 +29,6 @@ public class Trave {
 		isVisivel = true;
 	}
 
-	public void posicaoDireita() {
-
-		this.x = 688;
-		this.y = 192;
-
-	}
-
-	public void posicaoEsquerda() {
-
-		this.x = 0;
-		this.y = 192;
-
-	}
 
 	public void mudarIcone(int n) {
 
@@ -51,10 +36,16 @@ public class Trave {
 			referencia = new ImageIcon(getClass().getResource("/trave1.png"));
 
 			imagem = referencia.getImage();
+			this.x = 688;
+			this.y = 192;
+
 		} else {
 			referencia = new ImageIcon(getClass().getResource("/trave2.png"));
 
 			imagem = referencia.getImage();
+			this.x = 0;
+			this.y = 192;
+
 		}
 
 	}

@@ -2,9 +2,7 @@
 package Model;
 
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -18,16 +16,10 @@ public class Alvo {
 	private static int[] posX = { 576 };
 	private static int[] posY = { 192 };
 
-	private Point pontoA;
-	private Point pontoB;
-
 	public Alvo() {
 
-		pontoA = new Point(576, 192);
-		pontoB = new Point(64, 192);
-
-		this.x = pontoA.x;
-		this.y = pontoA.y;
+		this.x = 576;
+		this.y = 192;
 
 		referencia = new ImageIcon(getClass().getResource("/alvo.png"));
 
@@ -40,14 +32,14 @@ public class Alvo {
 	}
 
 	public void mudarA() {
-		this.x = pontoA.x;
-		this.y = pontoA.y;
+		this.x = 576;
+		this.y = 192;
 
 	}
 
 	public void mudarB() {
-		this.x = pontoB.x;
-		this.y = pontoB.y;
+		this.x = 64;
+		this.y = 192;
 
 	}
 

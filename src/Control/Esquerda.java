@@ -10,11 +10,8 @@ public class Esquerda implements Runnable {
 	int left;
 	boolean ativo = false;
 	int contador = 0;
-	private PraFora fora;
-
-	public Esquerda(Sprite player1,PraFora fora) {
+	public Esquerda(Sprite player1, PraFora fora) {
 		this.personagem = player1;
-		this.fora=fora;
 	}
 
 	@Override
@@ -63,8 +60,6 @@ public class Esquerda implements Runnable {
 			if (contador == 64) {
 				pararMovimento();
 			}
-		} else {
-			pararPelaColisao();
 		}
 	}
 
@@ -72,21 +67,6 @@ public class Esquerda implements Runnable {
 		ativo = false;
 		contador = 0;
 		personagem.aparencia = 2;
-	}
-
-	public void pararPelaColisao() {
-		reiniciar();
-		ativo = false;
-		contador = 0;
-		personagem.aparencia = 2;
-		personagem.setX(personagem.getX() + 2);
-
-	}
-	public void reiniciar() {
-		personagem.setX(personagem.getPonto().x);
-		personagem.setY(personagem.getPonto().y);
-
-
 	}
 
 	public boolean isAtivo() {

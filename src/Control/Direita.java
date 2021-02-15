@@ -10,11 +10,8 @@ public class Direita implements Runnable {
 	int right = 0;
 	boolean ativo = true;
 	int contador = 0;
-	private PraFora fora;
-
 	public Direita(Sprite player1,PraFora fora) {
 		this.personagem = player1;
-		this.fora=fora;
 	}
 
 	@Override
@@ -61,9 +58,7 @@ public class Direita implements Runnable {
 			if (contador == 64) {
 				pararMovimento();
 			}
-		} else {
-			pararPelaColisao();
-		}
+		} 
 	}
 
 	public void pararMovimento() {
@@ -72,14 +67,6 @@ public class Direita implements Runnable {
 		personagem.aparencia = 8;
 	}
 
-	public void pararPelaColisao() {
-		reiniciar();
-		ativo = false;
-		contador = 0;
-		personagem.aparencia = 8;
-		personagem.setX(personagem.getX() - 2);
-
-	}
 	public void reiniciar() {
 		personagem.setX(personagem.getPonto().x);
 		personagem.setY(personagem.getPonto().y);

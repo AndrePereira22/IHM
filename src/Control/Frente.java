@@ -1,9 +1,5 @@
 package Control;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import Model.Alvo;
 import Model.Sprite;
 import View.Fase;
 import View.PraFora;
@@ -14,12 +10,10 @@ public class Frente implements Runnable {
 	int up, down, left, right = 0;
 	boolean ativo = true;
 	int contador = 0;
-	private PraFora fora;
 	Fase fase;
 
 	public Frente(Sprite player1, PraFora fora, Fase fase) {
 		this.personagem = player1;
-		this.fora = fora;
 		this.fase = fase;
 
 	}
@@ -67,9 +61,7 @@ public class Frente implements Runnable {
 			if (contador == 64) {
 				pararMovimento();
 			}
-		} else {
-			pararPelaColisao();
-		}
+		} 
 	}
 
 	public void pararMovimento() {	
@@ -80,23 +72,6 @@ public class Frente implements Runnable {
 	
 	}
 
-	public void pararPelaColisao() {
-		reiniciar();
-		ativo = false;
-		contador = 0;
-		personagem.aparencia = 1;
-		personagem.setY(personagem.getY() + 2);
-
-	}
-
-
-
-	public void reiniciar() {
-		personagem.setX(personagem.getPonto().x);
-		personagem.setY(personagem.getPonto().y);
-
-
-	}
 
 	public boolean isAtivo() {
 		return ativo;

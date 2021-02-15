@@ -19,6 +19,9 @@ public class Janela extends JFrame {
 	private Entrada entrada;
 	private Fase fase;
 	private Stage stage;
+	private Creditos creditos;
+	private Ajuda ajuda;
+	private AjudaFase ajudaFase;
 
 	public Janela(int largura, int altura) {
 
@@ -31,9 +34,12 @@ public class Janela extends JFrame {
 		//setUndecorated(true);
 		setLocationRelativeTo(null);
 		
-
+		creditos = new Creditos(800, 600);
 		menu = new Menu(800, 600);
 		componentes = new Componente(1000, 700);
+		ajuda = new Ajuda(800, 600);
+		ajudaFase = new AjudaFase(800, 600);
+		
 		opcao = new Opcao(800, 600);
 		this.stage = new Stage(800,600);
 
@@ -41,9 +47,13 @@ public class Janela extends JFrame {
 		opcao.setVisible(false);
 		componentes.setVisible(false);
 		
+		
 
 		add(entrada);
 		add(menu);
+		add(creditos);
+		add(ajuda);
+		add(ajudaFase);
 		add(opcao);
 		add(stage);
 		add(componentes);
@@ -66,7 +76,7 @@ public class Janela extends JFrame {
 	}
 
 	public void TamanhoFase() {
-		setSize(1000, 660);
+		setSize(1000, 700);
 	}
 
 	public void TamanhoMenu() {
@@ -77,12 +87,24 @@ public class Janela extends JFrame {
 		return fase;
 	}
 
+	public Creditos getCreditos() {
+		return creditos;
+	}
+
 	public Entrada getEntrada() {
 		return entrada;
 	}
 
 	public Stage getStage() {
 		return stage;
+	}
+
+	public Ajuda getAjuda() {
+		return ajuda;
+	}
+
+	public AjudaFase getAjudaFase() {
+		return ajudaFase;
 	}
 
 }

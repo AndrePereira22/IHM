@@ -10,12 +10,8 @@ public class Baixo implements Runnable {
 	int up, down, left, right = 0;
 	boolean ativo = true;
 	int contador = 0;
-	private PraFora fora;
-
 	public Baixo(Sprite player1, PraFora fora) {
 		this.personagem = player1;
-
-		this.fora = fora;
 	}
 
 	@Override
@@ -63,9 +59,7 @@ public class Baixo implements Runnable {
 			if (contador == 64) {
 				pararMovimento();
 			}
-		} else {
-			pararPelaColisao();
-		}
+		} 
 	}
 
 	public void pararMovimento() {
@@ -74,14 +68,7 @@ public class Baixo implements Runnable {
 		personagem.aparencia = 0;
 	}
 
-	public void pararPelaColisao() {
-		fora.setVisible(true);
-		contador = 0;
-		personagem.aparencia = 0;
-		personagem.setY(personagem.getY() - 2);
-		ativo = false;
-		
-	}
+
 
 	public boolean isAtivo() {
 		return ativo;

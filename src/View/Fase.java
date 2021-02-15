@@ -59,6 +59,7 @@ public class Fase extends Jogo {
 		} catch (IOException e) {
 
 		}
+		repaint();
 
 	}
 
@@ -130,6 +131,7 @@ public class Fase extends Jogo {
 			}
 
 		}
+		g.drawImage(alvo.getImagem(), alvo.getX(), alvo.getY(), null);
 
 		g.drawImage(personagem.sprites[personagem.aparencia], personagem.getX(), personagem.getY(), null);
 
@@ -144,7 +146,7 @@ public class Fase extends Jogo {
 	}
 
 	public void setarColisao(Mapa colisao) {
-		this.setRetangulosColisao(colisao.montarColi());
+		Fase.setRetangulosColisao(colisao.montarColi());
 	}
 
 	public static ArrayList<Rectangle> getRetangulosColisao() {
