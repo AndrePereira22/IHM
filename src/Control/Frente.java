@@ -2,7 +2,6 @@ package Control;
 
 import Model.Sprite;
 import View.Fase;
-import View.PraFora;
 
 public class Frente implements Runnable {
 
@@ -12,7 +11,7 @@ public class Frente implements Runnable {
 	int contador = 0;
 	Fase fase;
 
-	public Frente(Sprite player1, PraFora fora, Fase fase) {
+	public Frente(Sprite player1,Fase fase) {
 		this.personagem = player1;
 		this.fase = fase;
 

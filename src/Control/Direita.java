@@ -2,7 +2,6 @@ package Control;
 
 import Model.Sprite;
 import View.Fase;
-import View.PraFora;
 
 public class Direita implements Runnable {
 
@@ -10,7 +9,7 @@ public class Direita implements Runnable {
 	int right = 0;
 	boolean ativo = true;
 	int contador = 0;
-	public Direita(Sprite player1,PraFora fora) {
+	public Direita(Sprite player1) {
 		this.personagem = player1;
 	}
 

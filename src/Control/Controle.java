@@ -20,7 +20,6 @@ import View.Fase;
 import View.Janela;
 import View.Menu;
 import View.Opcao;
-import View.PraFora;
 import View.Stage;
 
 public class Controle implements Runnable, ActionListener {
@@ -39,7 +38,7 @@ public class Controle implements Runnable, ActionListener {
 	private Sprite personagem;
 	private Movimento movimento;
 	private boolean brasil = false;
-	private PraFora fora;
+
 	private int aparencia = 1;
 	private int controlador;
 
@@ -55,7 +54,7 @@ public class Controle implements Runnable, ActionListener {
 		this.ajuda = janela.getAjuda();
 		this.ajudaFase = janela.getAjudaFase();
 		this.stage = janela.getStage();
-		this.fora = new PraFora(janela, true);
+
 		audio.getMusica().loop(100);
 		controleEventos();
 
@@ -95,17 +94,10 @@ public class Controle implements Runnable, ActionListener {
 		stage.getBtnVoltar().addActionListener(this);
 		creditos.getBtnVoltar().addActionListener(this);
 
-		fora.getBtnOk().addActionListener(this);
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == fora.getBtnOk()) {
-			fora.setVisible(false);
-			componentes.requestFocus();
-
-		}
 		if (e.getSource() == ajuda.getBtnVoltar()) {
 			MudarTela(menu, ajuda);
 
@@ -336,7 +328,7 @@ public class Controle implements Runnable, ActionListener {
 
 			componentes.getPainelFase().add(fase);
 			this.personagem = fase.getPersonagem();
-			this.movimento = new Movimento(personagem, fase, audio, componentes, fora);
+			this.movimento = new Movimento(personagem, fase, audio, componentes);
 		}
 		componentes.getPainelFase().setVisible(false);
 		componentes.getPainelFase().setVisible(true);

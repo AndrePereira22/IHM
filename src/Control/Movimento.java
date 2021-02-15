@@ -8,7 +8,7 @@ import Model.MainList;
 import Model.Sprite;
 import View.Componente;
 import View.Fase;
-import View.PraFora;
+
 
 public class Movimento {
 
@@ -25,14 +25,14 @@ public class Movimento {
 	private Fase fase;
 	private boolean foraAlvo=false;
 
-	public Movimento(Sprite player1, Fase fase, Audio audio, Componente componentes, PraFora fora) {
+	public Movimento(Sprite player1, Fase fase, Audio audio, Componente componentes) {
 
 		this.personagem = player1;
 		this.audio = audio;
-		this.direita = new Direita(personagem, fora);
-		this.esquerda = new Esquerda(personagem, fora);
-		this.cima = new Frente(personagem, fora, fase);
-		this.baixo = new Baixo(personagem, fora);
+		this.direita = new Direita(personagem);
+		this.esquerda = new Esquerda(personagem);
+		this.cima = new Frente(personagem,  fase);
+		this.baixo = new Baixo(personagem);
 		this.fase=fase;
 
 	}

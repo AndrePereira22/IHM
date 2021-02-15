@@ -2,7 +2,7 @@ package Control;
 
 import Model.Sprite;
 import View.Fase;
-import View.PraFora;
+
 
 public class Baixo implements Runnable {
 
@@ -10,7 +10,7 @@ public class Baixo implements Runnable {
 	int up, down, left, right = 0;
 	boolean ativo = true;
 	int contador = 0;
-	public Baixo(Sprite player1, PraFora fora) {
+	public Baixo(Sprite player1) {
 		this.personagem = player1;
 	}
 

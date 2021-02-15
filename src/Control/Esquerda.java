@@ -2,7 +2,6 @@ package Control;
 
 import Model.Sprite;
 import View.Fase;
-import View.PraFora;
 
 public class Esquerda implements Runnable {
 
@@ -10,7 +9,7 @@ public class Esquerda implements Runnable {
 	int left;
 	boolean ativo = false;
 	int contador = 0;
-	public Esquerda(Sprite player1, PraFora fora) {
+	public Esquerda(Sprite player1) {
 		this.personagem = player1;
 	}
 

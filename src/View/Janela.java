@@ -60,6 +60,7 @@ public class Janela extends JFrame {
 
 		Image iconeTitulo = Toolkit.getDefaultToolkit().getImage("baseDados\\caverna.png");
 		this.setIconImage(iconeTitulo);
+		this.setVisible(true);
 
 	}
 
