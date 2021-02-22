@@ -23,7 +23,6 @@ public class Menu extends JPanel {
 		setPreferredSize(new Dimension(largura, altura));
 		setLayout(null);
 		
-
 		jogar = new JButton();
 		jogar.setContentAreaFilled(false);
 		jogar.setBorder(null);

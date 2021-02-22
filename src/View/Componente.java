@@ -16,10 +16,10 @@ public class Componente extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel painelFase, painelArea, painelComandos, fundocomando, painelInfo;
-	private JLabel lblComandos, lblFase, lblJogador, lblSize;
-	private JLabel labelMain;
-	private JButton btnRestart, btnApagarSequencia, menu;
+	private JPanel painelFase, painelArea, painelComandos, fundocomando;
+	private JLabel lblComandos, lblFase, lblJogador, lblSize, lblDefault, lblErrouPosicao, lblErrouAcao;
+	private JLabel labelMain, lblGol, lblErrouChutar;
+	private JButton btnApagarSequencia, menu,btnRestart;
 	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay, btnChutar;
 	private int[] posXLabel = { 20, 52, 84, 118, 150, 182, 214, 246, 278, 310, 342, 374, 406, 438, 470, 502, 534, 566,
 			598, 630, 662, 692, 722, 754, 786, 818 };
@@ -68,14 +68,14 @@ public class Componente extends JPanel {
 
 		menu = new JButton("");
 		menu.setIcon(new ImageIcon(getClass().getResource("/men.png")));
-		menu.setBounds(139, 0, 61, 72);
+		menu.setBounds(80, 20, 100, 72);
 		menu.setBorder(null);
 		menu.setContentAreaFilled(false);
 		add(menu);
 
 		btnRestart = new JButton("");
-		btnRestart.setIcon(new ImageIcon(getClass().getResource("/reiniciar.png")));
-		btnRestart.setBounds(49, 3, 69, 69);
+		btnRestart.setIcon(new ImageIcon(getClass().getResource("/desligar.png")));
+		btnRestart.setBounds(190, 20, 100, 69);
 		btnRestart.setBorder(null);
 		btnRestart.setContentAreaFilled(false);
 		add(btnRestart);
@@ -111,14 +111,36 @@ public class Componente extends JPanel {
 		btnApagarSequencia.setContentAreaFilled(false);
 		add(btnApagarSequencia);
 
-		painelInfo = new JPanel();
-		painelInfo.setPreferredSize(new Dimension(largura, altura));
-		painelInfo.setLayout(null);
-		painelInfo.setBackground(Color.BLACK);
-		painelInfo.setBackground(new Color(197, 219, 222));
-		// painelInfo.setOpaque(false);
-		painelInfo.setBounds(785, 330, 180, 180);
-		add(painelInfo);
+		lblDefault = new JLabel("");
+		lblDefault.setIcon(new ImageIcon(getClass().getResource("/default.png")));
+		lblDefault.setBounds(775, 330, 180, 180);
+		lblDefault.setVisible(true);
+		add(lblDefault);
+
+		lblErrouPosicao = new JLabel("");
+		lblErrouPosicao.setIcon(new ImageIcon(getClass().getResource("/posicaoInvalida.png")));
+		lblErrouPosicao.setBounds(775, 330, 180, 180);
+		lblErrouPosicao.setVisible(false);
+		add(lblErrouPosicao);
+
+		lblErrouAcao = new JLabel("");
+		lblErrouAcao.setIcon(new ImageIcon(getClass().getResource("/errouAcao.png")));
+		lblErrouAcao.setBounds(775, 330, 180, 180);
+		lblErrouAcao.setVisible(false);
+		add(lblErrouAcao);
+
+		lblGol = new JLabel("");
+		lblGol.setIcon(new ImageIcon(getClass().getResource("/errouGol.png")));
+		lblGol.setBounds(775, 330, 180, 180);
+		lblGol.setVisible(false);
+
+		add(lblGol);
+
+		lblErrouChutar = new JLabel("");
+		lblErrouChutar.setIcon(new ImageIcon(getClass().getResource("/errouChutar.png")));
+		lblErrouChutar.setBounds(775, 330, 180, 180);
+		lblErrouPosicao.setVisible(false);
+		add(lblErrouChutar);
 
 		painelComandos = new JPanel();
 		painelComandos.setPreferredSize(new Dimension(largura, altura));
@@ -167,6 +189,50 @@ public class Componente extends JPanel {
 
 		repaint();
 
+	}
+
+	public void ErrouPosicao() {
+		lblDefault.setVisible(false);
+		lblErrouPosicao.setVisible(true);
+		setVisible(false);
+		setVisible(true);
+		repaint();
+	}
+
+	public void ErrouAcao() {
+		lblDefault.setVisible(false);
+		lblErrouAcao.setVisible(true);
+		setVisible(false);
+		setVisible(true);
+		repaint();
+
+	}
+
+	public void ErrouChutar() {
+		lblDefault.setVisible(false);
+		lblErrouChutar.setVisible(true);
+		setVisible(false);
+		setVisible(true);
+		repaint();
+	}
+
+	public void gol() {
+		lblDefault.setVisible(false);
+		lblGol.setVisible(true);
+		setVisible(false);
+		setVisible(true);
+		repaint();
+	}
+
+	public void ErrouDefault() {
+		lblErrouAcao.setVisible(false);
+		lblErrouChutar.setVisible(false);
+		lblGol.setVisible(false);
+		lblErrouPosicao.setVisible(false);
+		lblDefault.setVisible(true);
+		setVisible(false);
+		setVisible(true);
+		repaint();
 	}
 
 	public void setarIconeCima() {
@@ -253,9 +319,6 @@ public class Componente extends JPanel {
 		return menu;
 	}
 
-	public JButton getBtnRestart() {
-		return btnRestart;
-	}
 
 	public JButton getBtnApagarSequencia() {
 		return btnApagarSequencia;
@@ -302,4 +365,17 @@ public class Componente extends JPanel {
 
 		lblSize.repaint();
 	}
+
+	public JLabel getLblDefault() {
+		return lblDefault;
+	}
+
+	public JLabel getLblGol() {
+		return lblGol;
+	}
+
+	public JButton getBtnRestart() {
+		return btnRestart;
+	}
+
 }

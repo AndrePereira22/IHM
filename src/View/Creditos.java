@@ -35,7 +35,7 @@ public class Creditos extends JPanel {
 		facul.setBounds(201, 220, 418, 29);
 		add(facul);
 		
-		JLabel lblNewLabel = new JLabel("DISCIPLINA: INTERA\u00C7\u00C3O HOME MAQUINA");
+		JLabel lblNewLabel = new JLabel("DISCIPLINA:  INTERFACES HOMEM-MÁQUINA");
 		lblNewLabel.setBounds(201, 250, 275, 14);
 		add(lblNewLabel);
 		
@@ -43,7 +43,7 @@ public class Creditos extends JPanel {
 		lblNewLabel_1.setBounds(201, 270, 239, 14);
 		add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("PROFESSOR: RICHARLISON ALVES DEMERY");
+		JLabel lblNewLabel_2 = new JLabel("PROFESSOR: RICHARLYSON A. D’EMERY ");
 		lblNewLabel_2.setBounds(201, 290, 275, 14);
 		add(lblNewLabel_2);
 	

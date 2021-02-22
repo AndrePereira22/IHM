@@ -102,7 +102,7 @@ public class Stage extends JPanel {
 		
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setIcon(new ImageIcon(getClass().getResource("/a.png")));
-		lblFundo.setBounds(0, 0, 792, 609);
+		lblFundo.setBounds(0, 0, 800, 600);
 		add(lblFundo);
 
 		setVisible(false);

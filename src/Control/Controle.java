@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Model.Audio;
@@ -16,7 +15,6 @@ import View.Ajuda;
 import View.AjudaFase;
 import View.Componente;
 import View.Creditos;
-import View.Entrada;
 import View.Fase;
 import View.Janela;
 import View.Menu;
@@ -31,7 +29,7 @@ public class Controle implements Runnable, ActionListener {
 	private Opcao opcao;
 	private Audio audio;
 	private Menu menu;
-	private Entrada entrada;
+	// private Entrada entrada;
 	private Creditos creditos;
 	private Ajuda ajuda;
 	private AjudaFase ajudaFase;
@@ -39,7 +37,7 @@ public class Controle implements Runnable, ActionListener {
 	private Sprite personagem;
 	private Movimento movimento;
 	private boolean brasil = false;
-
+	private boolean gol = false;
 	public static int aparencia = 1;
 	private int controlador;
 
@@ -51,9 +49,9 @@ public class Controle implements Runnable, ActionListener {
 		this.janela = janela;
 		this.componentes = janela.getComponentes();
 		this.menu = janela.getMenu();
-		 this.audio = new Audio();
+		this.audio = new Audio();
 		this.opcao = janela.getOpcao();
-		this.entrada = janela.getEntrada();
+		// this.entrada = janela.getEntrada();
 		this.creditos = janela.getCreditos();
 		this.ajuda = janela.getAjuda();
 		this.ajudaFase = janela.getAjudaFase();
@@ -98,6 +96,7 @@ public class Controle implements Runnable, ActionListener {
 		componentes.getBtnPlay().addActionListener(this);
 		componentes.getMenu().addActionListener(this);
 		componentes.getBtnApagarSequencia().addActionListener(this);
+		componentes.getBtnRestart().addActionListener(this);
 
 		stage.getBtnFase1().addActionListener(this);
 		stage.getBtnFase2().addActionListener(this);
@@ -118,6 +117,10 @@ public class Controle implements Runnable, ActionListener {
 
 		if (e.getSource() == ajuda.getBtnVoltar()) {
 			MudarTela(menu, ajuda);
+
+		}
+		if (e.getSource() == componentes.getBtnRestart()) {
+			System.exit(0);
 
 		}
 		if (e.getSource() == ajuda.getBtnAvancar()) {
@@ -147,7 +150,7 @@ public class Controle implements Runnable, ActionListener {
 
 		}
 		if (e.getSource() == menu.getJogar()) {
-			MudarTela(entrada, menu);
+			MudarTela(opcao, menu);
 
 		}
 		if (e.getSource() == menu.getCreditos()) {
@@ -210,6 +213,8 @@ public class Controle implements Runnable, ActionListener {
 				movimento.addMovimento("right");
 				mudarSeta("right");
 				componentes.mudarSize(movimento.getLista().size());
+			} else {
+				componentes.ErrouAcao();
 			}
 
 		}
@@ -218,6 +223,8 @@ public class Controle implements Runnable, ActionListener {
 				movimento.addMovimento("left");
 				mudarSeta("left");
 				componentes.mudarSize(movimento.getLista().size());
+			} else {
+				componentes.ErrouAcao();
 			}
 
 		}
@@ -227,6 +234,8 @@ public class Controle implements Runnable, ActionListener {
 				movimento.addMovimento("up");
 				mudarSeta("up");
 				componentes.mudarSize(movimento.getLista().size());
+			} else {
+				componentes.ErrouAcao();
 			}
 
 		}
@@ -236,6 +245,8 @@ public class Controle implements Runnable, ActionListener {
 				movimento.addMovimento("giro");
 				mudarSeta("180");
 				componentes.mudarSize(movimento.getLista().size());
+			} else {
+				componentes.ErrouAcao();
 			}
 
 		}
@@ -244,6 +255,8 @@ public class Controle implements Runnable, ActionListener {
 				movimento.addMovimento("chutar");
 				componentes.addComando("chute");
 				componentes.mudarSize(movimento.getLista().size());
+			} else {
+				componentes.ErrouAcao();
 			}
 
 		}
@@ -251,17 +264,18 @@ public class Controle implements Runnable, ActionListener {
 		if (e.getSource() == componentes.getBtnPlay()) {
 
 			if ((movimento.getLista().isEmpty())) {
-				JOptionPane.showMessageDialog(null, "Voce nao adicionou comandos");
+				componentes.ErrouAcao();
+
 			} else {
 				if (movimento.getLista().get(movimento.getLista().size() - 1).getDirecao().equals("chutar")) {
 					try {
 						movimento.Play();
 					} catch (java.util.ConcurrentModificationException e2) {
-						System.out.println("erro de concorrencia");
+
 					}
 
 				} else {
-					JOptionPane.showMessageDialog(null, "Adiciono o comando de chutar no final.");
+					componentes.ErrouChutar();
 				}
 			}
 
@@ -269,6 +283,8 @@ public class Controle implements Runnable, ActionListener {
 		if (e.getSource() == componentes.getBtnApagarSequencia()) {
 			if (componentes.removerComando()) {
 				apagarComando();
+			} else {
+				componentes.ErrouAcao();
 			}
 			;
 
@@ -293,15 +309,15 @@ public class Controle implements Runnable, ActionListener {
 
 	private void runControleDoJogo() {
 
-		if (entrada.isVisible()) {
-			try {
-				Thread.sleep(5000);
-				MudarTela(opcao, entrada);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+//		if (entrada.isVisible()) {
+//			try {
+//				Thread.sleep(5000);
+//				MudarTela(opcao, entrada);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 
 		if (fase != null && fase.isVisible()) {
 			gol(0, 0);
@@ -316,6 +332,31 @@ public class Controle implements Runnable, ActionListener {
 
 			}
 
+		}
+		if (componentes.isVisible()) {
+			if (!componentes.getLblDefault().isVisible()) {
+				try {
+					Thread.sleep(3000);
+
+					componentes.ErrouDefault();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		if (gol) {
+			componentes.gol();
+			audio.getSndgol().play();
+			try {
+				Thread.sleep(13000);
+				foiGol();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
 		}
 	}
 
@@ -498,12 +539,8 @@ public class Controle implements Runnable, ActionListener {
 			Rectangle ball = new Rectangle(b.getX() + x, b.getY() + y, b.getLargura(), b.getAltura());
 
 			if (trave.intersects(ball)) {
-				audio.getSndgol().play();
 				b.setVisivel(false);
-				menu();
-				MudarTela(stage, componentes);
-				liberarFase();
-				reiniciar();
+				gol = true;
 			}
 
 		}
@@ -584,7 +621,6 @@ public class Controle implements Runnable, ActionListener {
 			} else if (aparencia == 1) {
 				aparencia = 0;
 				componentes.setarIconeBaixo();
-				System.out.println("mudou a seta");
 
 			} else if (aparencia == 0) {
 				aparencia = 1;
@@ -720,4 +756,16 @@ public class Controle implements Runnable, ActionListener {
 
 	}
 
+	public void foiGol() {
+
+		componentes.gol();
+		menu();
+		MudarTela(stage, componentes);
+		liberarFase();
+		reiniciar();
+		audio.getSndgol().stop();
+		gol = false;
+
+		componentes.ErrouDefault();
+	}
 }

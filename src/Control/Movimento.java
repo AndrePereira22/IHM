@@ -9,7 +9,6 @@ import Model.Sprite;
 import View.Componente;
 import View.Fase;
 
-
 public class Movimento {
 
 	private Sprite personagem;
@@ -25,17 +24,16 @@ public class Movimento {
 	private Fase fase;
 	private Componente componentes;
 
-
 	public Movimento(Sprite player1, Fase fase, Audio audio, Componente componentes) {
 
 		this.personagem = player1;
 		this.audio = audio;
 		this.direita = new Direita(personagem);
 		this.esquerda = new Esquerda(personagem);
-		this.cima = new Frente(personagem,  fase);
+		this.cima = new Frente(personagem, fase);
 		this.baixo = new Baixo(personagem);
-		this.fase=fase;
-		this.componentes=componentes;
+		this.fase = fase;
+		this.componentes = componentes;
 
 	}
 
@@ -164,11 +162,11 @@ public class Movimento {
 							e.printStackTrace();
 						}
 
-				}else {
-				
-					reiniciar();
-		
-				}
+					} else {
+
+						componentes.ErrouPosicao();
+						reiniciar();
+					}
 
 				}
 				Thread.sleep(240);
@@ -183,6 +181,7 @@ public class Movimento {
 		}
 
 	}
+
 	public void reiniciar() {
 		Bola.getBolas().clear();
 		componentes.setarIconeCima();
@@ -190,6 +189,8 @@ public class Movimento {
 		componentes.setIndice(0);
 		posicionarA();
 		getLista().clear();
+		
+	
 	}
 
 	public void posicionarA() {
