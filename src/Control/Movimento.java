@@ -111,10 +111,15 @@ public class Movimento {
 					}
 
 				} else if (main.getDirecao().equals("chutar")) {
+					
+					audio.getSndApito().play();
+					Thread.sleep(2300);
+					
 
 					if (personagem.colisaoAlvo(fase.getAlvo(), 0, 0)) {
 
 						audio.getSndchute().play();
+						Thread.sleep(500);
 
 						try {
 

@@ -19,7 +19,7 @@ public class Componente extends JPanel {
 	private JPanel painelFase, painelArea, painelComandos, fundocomando;
 	private JLabel lblComandos, lblFase, lblJogador, lblSize, lblDefault, lblErrouPosicao, lblErrouAcao;
 	private JLabel labelMain, lblGol, lblErrouChutar;
-	private JButton btnApagarSequencia, menu,btnRestart;
+	private JButton btnApagarSequencia, menu,btnRestart,btnSair;
 	private JButton btnLeft, btnUp, btnRight, btn180, btnPlay, btnChutar;
 	private int[] posXLabel = { 20, 52, 84, 118, 150, 182, 214, 246, 278, 310, 342, 374, 406, 438, 470, 502, 534, 566,
 			598, 630, 662, 692, 722, 754, 786, 818 };
@@ -45,7 +45,7 @@ public class Componente extends JPanel {
 		lblJogador = new JLabel("JOGADOR:");
 		lblJogador.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblJogador.setForeground(new Color(239, 213, 103));
-		lblJogador.setBounds(485, 70, 319, 22);
+		lblJogador.setBounds(490, 52, 319, 22);
 		add(lblJogador);
 
 		lblSize = new JLabel("0 / 25");
@@ -57,7 +57,7 @@ public class Componente extends JPanel {
 		lblFase = new JLabel("FASE 1");
 		lblFase.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblFase.setForeground(new Color(239, 213, 103));
-		lblFase.setBounds(360, 70, 119, 22);
+		lblFase.setBounds(410, 52, 119, 22);
 		add(lblFase);
 
 		lblComandos = new JLabel("COMANDOS");
@@ -74,11 +74,18 @@ public class Componente extends JPanel {
 		add(menu);
 
 		btnRestart = new JButton("");
-		btnRestart.setIcon(new ImageIcon(getClass().getResource("/desligar.png")));
+		btnRestart.setIcon(new ImageIcon(getClass().getResource("/reset.png")));
 		btnRestart.setBounds(190, 20, 100, 69);
 		btnRestart.setBorder(null);
 		btnRestart.setContentAreaFilled(false);
 		add(btnRestart);
+		
+		btnSair = new JButton("");
+		btnSair.setIcon(new ImageIcon(getClass().getResource("/desligar.png")));
+		btnSair.setBounds(300, 20, 100, 69);
+		btnSair.setBorder(null);
+		btnSair.setContentAreaFilled(false);
+		add(btnSair);
 
 		painelFase = new JPanel();
 		painelFase.setBackground(Color.BLACK);
@@ -376,6 +383,10 @@ public class Componente extends JPanel {
 
 	public JButton getBtnRestart() {
 		return btnRestart;
+	}
+
+	public JButton getBtnSair() {
+		return btnSair;
 	}
 
 }

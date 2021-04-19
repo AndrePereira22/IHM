@@ -71,7 +71,7 @@ public class Controle implements Runnable, ActionListener {
 		colisao5 = new Mapa("c.png", "colisao5.txt");
 		colisao6 = new Mapa("c.png", "colisao6.txt");
 
-		audio.getSndmusica().loop();
+		audio.getSndmusica().play();
 		controleEventos();
 
 		janela.setVisible(true);
@@ -97,6 +97,7 @@ public class Controle implements Runnable, ActionListener {
 		componentes.getMenu().addActionListener(this);
 		componentes.getBtnApagarSequencia().addActionListener(this);
 		componentes.getBtnRestart().addActionListener(this);
+		componentes.getBtnSair().addActionListener(this);
 
 		stage.getBtnFase1().addActionListener(this);
 		stage.getBtnFase2().addActionListener(this);
@@ -120,6 +121,11 @@ public class Controle implements Runnable, ActionListener {
 
 		}
 		if (e.getSource() == componentes.getBtnRestart()) {
+			reiniciar();
+			iniciar(controlador);
+
+		}
+		if (e.getSource() == componentes.getBtnSair()) {
 			System.exit(0);
 
 		}
