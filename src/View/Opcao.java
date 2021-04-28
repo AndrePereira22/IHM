@@ -16,7 +16,7 @@ public class Opcao extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtJogador, txtIdade;
-	private JLabel  lblIdade, fundo, lblJogador,fundoBaixo;
+	private JLabel  lblIdade, fundo, lblJogador,fundoBaixo,lblAviso;
 	private JButton btnAvancar, btnBrasil, btnPortugal,btnVoltar;
 	private JPanel painelLeft, painelRight, panelPlay;
 
@@ -28,6 +28,11 @@ public class Opcao extends JPanel {
 		setPreferredSize(new Dimension(largura, altura));
 		setLayout(null);
 
+		lblAviso = new JLabel("");
+		lblAviso.setIcon(new ImageIcon(getClass().getResource("/campos.png")));
+		lblAviso.setBounds(320, 360, 180, 180);
+		lblAviso.setVisible(false);
+		add(lblAviso);
 
 
 		painelLeft = new JPanel();
@@ -138,6 +143,10 @@ public class Opcao extends JPanel {
 
 	public JButton getBtnPortugal() {
 		return btnPortugal;
+	}
+
+	public JLabel getLblAviso() {
+		return lblAviso;
 	}
 
 

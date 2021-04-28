@@ -15,6 +15,7 @@ import View.Ajuda;
 import View.AjudaFase;
 import View.Componente;
 import View.Creditos;
+import View.Entrada;
 import View.Fase;
 import View.Janela;
 import View.Menu;
@@ -29,7 +30,7 @@ public class Controle implements Runnable, ActionListener {
 	private Opcao opcao;
 	private Audio audio;
 	private Menu menu;
-	// private Entrada entrada;
+	private Entrada entrada;
 	private Creditos creditos;
 	private Ajuda ajuda;
 	private AjudaFase ajudaFase;
@@ -51,7 +52,7 @@ public class Controle implements Runnable, ActionListener {
 		this.menu = janela.getMenu();
 		this.audio = new Audio();
 		this.opcao = janela.getOpcao();
-		// this.entrada = janela.getEntrada();
+		this.entrada = janela.getEntrada();
 		this.creditos = janela.getCreditos();
 		this.ajuda = janela.getAjuda();
 		this.ajudaFase = janela.getAjudaFase();
@@ -79,12 +80,6 @@ public class Controle implements Runnable, ActionListener {
 
 	public void controleEventos() {
 
-		menu.getJogar().addActionListener(this);
-		menu.getSair().addActionListener(this);
-		menu.getAjuda().addActionListener(this);
-		menu.getCreditos().addActionListener(this);
-
-		opcao.getBtnIniciar().addActionListener(this);
 		opcao.getBtnBrasil().addActionListener(this);
 		opcao.getBtnPortugal().addActionListener(this);
 
@@ -105,21 +100,13 @@ public class Controle implements Runnable, ActionListener {
 		stage.getBtnFase4().addActionListener(this);
 		stage.getBtnFase5().addActionListener(this);
 		stage.getBtnFase6().addActionListener(this);
-		opcao.getBtnVoltar().addActionListener(this);
-		ajuda.getBtnVoltar().addActionListener(this);
-		ajuda.getBtnAvancar().addActionListener(this);
-		ajudaFase.getBtnVoltar().addActionListener(this);
-		stage.getBtnVoltar().addActionListener(this);
-		creditos.getBtnVoltar().addActionListener(this);
+
+		
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == ajuda.getBtnVoltar()) {
-			MudarTela(menu, ajuda);
-
-		}
 		if (e.getSource() == componentes.getBtnRestart()) {
 			reiniciar();
 			iniciar(controlador);
@@ -129,47 +116,12 @@ public class Controle implements Runnable, ActionListener {
 			System.exit(0);
 
 		}
-		if (e.getSource() == ajuda.getBtnAvancar()) {
-			MudarTela(ajudaFase, ajuda);
 
-		}
-		if (e.getSource() == ajudaFase.getBtnVoltar()) {
-			MudarTela(ajuda, ajudaFase);
-
-		}
-
-		if (e.getSource() == opcao.getBtnVoltar()) {
-			MudarTela(menu, opcao);
-
-		}
 		if (e.getSource() == componentes.getMenu()) {
 			MudarTela(stage, componentes);
 			menu();
 		}
 
-		if (e.getSource() == stage.getBtnVoltar()) {
-			MudarTela(opcao, stage);
-
-		}
-		if (e.getSource() == creditos.getBtnVoltar()) {
-			MudarTela(menu, creditos);
-
-		}
-		if (e.getSource() == menu.getJogar()) {
-			MudarTela(opcao, menu);
-
-		}
-		if (e.getSource() == menu.getCreditos()) {
-			MudarTela(creditos, menu);
-		}
-		if (e.getSource() == menu.getAjuda()) {
-			MudarTela(ajuda, menu);
-		}
-
-		if (e.getSource() == menu.getSair()) {
-			System.exit(0);
-
-		}
 		if (e.getSource() == stage.getBtnFase6()) {
 			MudarTela(componentes, stage);
 			iniciar(6);
@@ -202,9 +154,7 @@ public class Controle implements Runnable, ActionListener {
 			iniciar(1);
 
 		}
-		if (e.getSource() == opcao.getBtnIniciar()) {
-			MudarTela(stage, opcao);
-		}
+
 		if (e.getSource() == opcao.getBtnBrasil()) {
 
 			brasil = true;
@@ -315,15 +265,15 @@ public class Controle implements Runnable, ActionListener {
 
 	private void runControleDoJogo() {
 
-//		if (entrada.isVisible()) {
-//			try {
-//				Thread.sleep(5000);
-//				MudarTela(opcao, entrada);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
+		if (entrada.isVisible()) {
+			try {
+				Thread.sleep(5000);
+				MudarTela(opcao, entrada);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		if (fase != null && fase.isVisible()) {
 			gol(0, 0);
@@ -339,6 +289,19 @@ public class Controle implements Runnable, ActionListener {
 			}
 
 		}
+		if (opcao.getLblAviso().isVisible()) {
+			
+				try {
+					Thread.sleep(2000);
+
+					opcao.getLblAviso().setVisible(false);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+		}
+		
 		if (componentes.isVisible()) {
 			if (!componentes.getLblDefault().isVisible()) {
 				try {
